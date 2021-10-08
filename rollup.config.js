@@ -70,10 +70,6 @@ export default [
                 // if false then skip sourceMap generation for CommonJS modules
                 sourceMap: false,  // Default: true
 
-                // explicitly specify unresolvable named exports
-                // (see below for more details)
-                namedExports: { 'react': ['createElement', 'Component' ] },  // Default: undefined
-
                 // sometimes you have to leave require statements
                 // unconverted. Pass an array containing the IDs
                 // or a `id => boolean` function. Only use this
