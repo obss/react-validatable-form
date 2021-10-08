@@ -1,0 +1,5 @@
+.idea
+react-validatable-form.iml
+/dist
+stats.html
+/node_modules

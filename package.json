@@ -1,0 +1,59 @@
+{
+  "name": "react-validatable-form",
+  "version": "0.5.0",
+  "description": "React validatable form hook that is used to make dynamic client side validations on react forms",
+  "keywords": [
+    "react",
+    "validation",
+    "validatable-form",
+    "validatable-form-hook"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "scripts": {
+    "build": "rimraf dist && rollup -c --environment NODE_ENV:production",
+    "start": "rimraf dist && rollup -c -w --environment NODE_ENV:development"
+  },
+  "repository": "https://github.com/obss/react-validatable-form.git",
+  "homepage": "https://obss.github.io/react-validatable-form-demo",
+  "license": "MIT",
+  "author": "ahmetemrekilinc",
+  "peerDependencies": {
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "7.11.6",
+    "@babel/plugin-proposal-class-properties": "7.10.4",
+    "@babel/plugin-proposal-function-bind": "7.11.5",
+    "@babel/preset-env": "7.11.5",
+    "@babel/preset-react": "7.10.4",
+    "@rollup/plugin-babel": "5.2.1",
+    "@rollup/plugin-commonjs": "15.1.0",
+    "@rollup/plugin-json": "4.1.0",
+    "@rollup/plugin-node-resolve": "9.0.0",
+    "@rollup/plugin-replace": "2.3.3",
+    "babel-eslint": "10.1.0",
+    "eslint": "7.23.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-prettier": "3.3.1",
+    "eslint-plugin-react": "7.23.1",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "prettier": "2.2.1",
+    "react-scripts": "3.4.3",
+    "rollup": "2.29.0",
+    "rollup-plugin-node-builtins": "2.1.2",
+    "rollup-plugin-node-globals": "1.4.0",
+    "rollup-plugin-peer-deps-external": "2.2.3",
+    "rollup-plugin-postcss": "3.1.8",
+    "rollup-plugin-terser": "7.0.2",
+    "rollup-plugin-visualizer": "4.2.0"
+  },
+  "dependencies": {
+    "lodash": "4.17.20"
+  },
+  "files": [
+    "dist"
+  ]
+}
