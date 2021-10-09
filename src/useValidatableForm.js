@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { get, set, isEmpty } from 'lodash';
 import ReactValidatableFormContext from './ReactValidatableFormContext';
 import { handleValidationsOfForm } from './operations/ValidationOperations';
+import { isNullOrUndefined } from './utils/ControlUtils';
 
 const findDuplicates = (arry) => arry.filter((item, index) => arry.indexOf(item) !== index);
 
@@ -14,15 +15,19 @@ const immediatelyFocusToHtmlElementWithGivenId = (elementId) => {
     }
 };
 
+const getFinalPropValueFromHookOrContext = (key, hookProps, context) => {
+    let finalVal = false;
+    if (!isNullOrUndefined(context[key])) {
+        finalVal = context[key];
+    }
+    if (!isNullOrUndefined(hookProps[key])) {
+        finalVal = hookProps[key];
+    }
+    return finalVal;
+};
+
 const useValidatableForm = (props) => {
-    const {
-        rules,
-        initialFormData = {},
-        hideBeforeSubmit,
-        showAfterBlur,
-        focusToErrorAfterSubmit,
-        elementFocusHandler,
-    } = props;
+    const { rules, initialFormData = {}, elementFocusHandler } = props;
 
     const context = useContext(ReactValidatableFormContext);
     const [currentFormData, setCurrentFormData] = useState(initialFormData);
@@ -59,69 +64,75 @@ const useValidatableForm = (props) => {
 
     const handleSetFormIsSubmitted = () => {
         setFormIsSubmitted(true);
-        if (!isValid && focusToErrorAfterSubmit) {
+        let finalFocusToErrorAfterSubmit = getFinalPropValueFromHookOrContext(
+            'focusToErrorAfterSubmit',
+            props,
+            context
+        );
+        if (!isValid && finalFocusToErrorAfterSubmit) {
             const focusToElementFunction =
                 elementFocusHandler || context.elementFocusHandler || immediatelyFocusToHtmlElementWithGivenId;
             for (let i = 0; i < currentRules.length; i++) {
                 const ruleDef = currentRules[i];
-                const path = ruleDef.path;
-                const elementId = ruleDef.elementId;
-                const listPath = ruleDef.listPath;
-                const listElementId = ruleDef.listElementId;
-                const subRules = ruleDef.subRules;
-                let scrollableList = [];
-                if (listPath) {
-                    if (subRules) {
-                        const fullElementIdPrefix = listElementId || listPath;
-                        const listData = get(currentFormData, listPath);
-                        if (listData && listData.length > 0) {
-                            for (let j = 0; j < listData.length; j++) {
-                                for (let s = 0; s < subRules.length; s++) {
-                                    const subRule = subRules[s];
-                                    const subRulePath = subRule.path;
-                                    const subElementId = subRule.elementId || subRulePath;
-
+                if (!ruleDef.disableFocusAfterSubmit) {
+                    const path = ruleDef.path;
+                    const elementId = ruleDef.elementId;
+                    const listPath = ruleDef.listPath;
+                    const listElementId = ruleDef.listElementId;
+                    const subRules = ruleDef.subRules;
+                    let scrollableList = [];
+                    if (listPath) {
+                        if (subRules) {
+                            const fullElementIdPrefix = listElementId || listPath;
+                            const listData = get(currentFormData, listPath);
+                            if (listData && listData.length > 0) {
+                                for (let j = 0; j < listData.length; j++) {
+                                    for (let s = 0; s < subRules.length; s++) {
+                                        const subRule = subRules[s];
+                                        if (!subRule.disableFocusAfterSubmit) {
+                                            const subRulePath = subRule.path;
+                                            const subElementId = subRule.elementId || subRulePath;
+                                            scrollableList.push({
+                                                fullPath: `${listPath}{${j}}.${subRulePath}`,
+                                                fullElementId: `${fullElementIdPrefix}{${j}}.${subElementId}`,
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            const fullElementIdPrefix = listElementId || listPath;
+                            const listData = get(currentFormData, listPath);
+                            if (listData && listData.length > 0) {
+                                for (let j = 0; j < listData.length; j++) {
                                     scrollableList.push({
-                                        fullPath: `${listPath}{${j}}.${subRulePath}`,
-                                        fullElementId: `${fullElementIdPrefix}{${j}}.${subElementId}`,
+                                        fullPath: `${listPath}{${j}}`,
+                                        fullElementId: `${fullElementIdPrefix}{${j}}`,
                                     });
                                 }
                             }
                         }
                     } else {
-                        const fullElementIdPrefix = listElementId || listPath;
-                        const listData = get(currentFormData, listPath);
-                        if (listData && listData.length > 0) {
-                            for (let j = 0; j < listData.length; j++) {
-                                scrollableList.push({
-                                    fullPath: `${listPath}{${j}}`,
-                                    fullElementId: `${fullElementIdPrefix}{${j}}`,
-                                });
-                            }
-                        }
+                        const fullElementId = elementId || path;
+                        scrollableList.push({
+                            fullPath: path,
+                            fullElementId: fullElementId,
+                        });
                     }
-                } else {
-                    const fullElementId = elementId || path;
-                    scrollableList.push({
-                        fullPath: path,
-                        fullElementId: fullElementId,
-                    });
-                }
 
-                if (scrollableList && scrollableList.length > 0) {
-                    for (let k = 0; k < scrollableList.length; k++) {
-                        const scrollableObject = scrollableList[k];
-                        const fullPath = scrollableObject.fullPath;
-                        const fullElementId = scrollableObject.fullElementId;
-                        if (validationErrorOriginalResult[fullPath] && fullElementId) {
-                            focusToElementFunction(fullElementId);
-                            return isValid;
+                    if (scrollableList && scrollableList.length > 0) {
+                        for (let k = 0; k < scrollableList.length; k++) {
+                            const scrollableObject = scrollableList[k];
+                            const fullPath = scrollableObject.fullPath;
+                            const fullElementId = scrollableObject.fullElementId;
+                            if (validationErrorOriginalResult[fullPath] && fullElementId) {
+                                focusToElementFunction(fullElementId);
+                                return isValid;
+                            }
                         }
                     }
                 }
             }
-            // if it reaches here then it means focus is not successful
-            console.info(`useValidatableForm info. Dom element is not found to be focused`);
         }
         return isValid;
     };
@@ -159,7 +170,7 @@ const useValidatableForm = (props) => {
         setCurrentFormData(newFormData);
     };
 
-    const handleBlur = (path) => {
+    const setPathIsBlurred = (path) => {
         if (path) {
             const newBlurPathList = [...blurPathList];
             if (!newBlurPathList.includes(path)) {
@@ -172,8 +183,10 @@ const useValidatableForm = (props) => {
     const isValid = isEmpty(Object.keys(validationErrorOriginalResult));
 
     let validationError = { ...validationErrorOriginalResult };
-    if (hideBeforeSubmit && !formIsSubmitted) {
-        if (showAfterBlur) {
+    let finalHideBeforeSubmit = getFinalPropValueFromHookOrContext('hideBeforeSubmit', props, context);
+    if (finalHideBeforeSubmit && !formIsSubmitted) {
+        let finalShowAfterBlur = getFinalPropValueFromHookOrContext('showAfterBlur', props, context);
+        if (finalShowAfterBlur) {
             Object.keys(validationErrorOriginalResult).forEach((pathForFocus) => {
                 if (!blurPathList.includes(pathForFocus)) {
                     delete validationError[pathForFocus];
@@ -190,7 +203,7 @@ const useValidatableForm = (props) => {
         setFormData: handleSetFormData,
         setRules: handleSetCurrentRules,
         setFormIsSubmitted: handleSetFormIsSubmitted,
-        handleBlur: handleBlur,
+        setPathIsBlurred: setPathIsBlurred,
     };
 
     return [isValid, validationError, currentFormData, restFunctions];

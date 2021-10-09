@@ -5,7 +5,15 @@ import ReactValidatableFormContext from './ReactValidatableFormContext';
 import originalTranslations from './translations';
 
 const ReactValidatableFormProvider = (props) => {
-    const { customRules, lang, translations, elementFocusHandler } = props;
+    const {
+        customRules,
+        lang,
+        translations,
+        hideBeforeSubmit,
+        showAfterBlur,
+        focusToErrorAfterSubmit,
+        elementFocusHandler,
+    } = props;
     const contextValue = { lang: DEFAULT_LANG };
 
     let allRules = { ...VALIDATION_OPERATIONS_MAP };
@@ -37,6 +45,9 @@ const ReactValidatableFormProvider = (props) => {
         contextValue.lang = lang;
     }
 
+    contextValue.hideBeforeSubmit = hideBeforeSubmit;
+    contextValue.showAfterBlur = showAfterBlur;
+    contextValue.focusToErrorAfterSubmit = focusToErrorAfterSubmit;
     contextValue.elementFocusHandler = elementFocusHandler;
 
     return (
