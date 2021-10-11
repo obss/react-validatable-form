@@ -7,7 +7,7 @@
 
   
 
-[![NPM (scoped)](https://img.shields.io/npm/v/react-validatable-form?label=npm%20%7C%20web)](https://www.npmjs.com/package/react-validatable-form) [![License](https://img.shields.io/github/license/obss/react-validatable-form.svg)](https://github.com/obss/react-validatable-form/blob/master/LICENSE) [![GitHub contributors](https://img.shields.io/github/contributors/obss/react-validatable-form)](https://github.com/obss/react-validatable-form/graphs/contributors) [![Github Issues](https://img.shields.io/github/issues/obss/react-validatable-form.svg)](https://github.com/obss/react-validatable-formk/issues)
+[![NPM (scoped)](https://img.shields.io/npm/v/react-validatable-form?label=npm%20%7C%20web)](https://www.npmjs.com/package/react-validatable-form) [![License](https://img.shields.io/github/license/obss/react-validatable-form.svg)](https://github.com/obss/react-validatable-form/blob/master/LICENSE) [![GitHub contributors](https://img.shields.io/github/contributors/obss/react-validatable-form)](https://github.com/obss/react-validatable-form/graphs/contributors) [![Github Issues](https://img.shields.io/github/issues/obss/react-validatable-form.svg)](https://github.com/obss/react-validatable-form/issues)
 
 ---
 
