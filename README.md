@@ -14,10 +14,10 @@
   
 -  [Install](#install)
 
+-  [Getting Started](#getting-started)
+
     -  [Setup ReactValidatableFormProvider](#setup-provider)
     -  [useValidatableForm Hook Usage](#hook-usage)
-
--  [Getting Started](#getting-started)
 
 -  [Examples](#examples)
 
