@@ -5,7 +5,13 @@
 > React validatable form hook that is used to create dynamic client side validations on React forms.
 
 
-[![NPM (scoped)](https://img.shields.io/npm/v/react-validatable-form?label=npm%20%7C%20web)](https://www.npmjs.com/package/react-validatable-form) [![License](https://img.shields.io/github/license/obss/react-validatable-form.svg)](https://github.com/obss/react-validatable-form/blob/master/LICENSE) [![GitHub contributors](https://img.shields.io/github/contributors/obss/react-validatable-form)](https://github.com/obss/react-validatable-form/graphs/contributors) [![Github Issues](https://img.shields.io/github/issues/obss/react-validatable-form.svg)](https://github.com/obss/react-validatable-form/issues)
+[![NPM (scoped)](https://img.shields.io/npm/v/react-validatable-form?label=npm%20%7C%20web)](https://www.npmjs.com/package/react-validatable-form)
+[![License](https://img.shields.io/github/license/obss/react-validatable-form.svg)](https://github.com/obss/react-validatable-form/blob/master/LICENSE) 
+[![GitHub contributors](https://img.shields.io/github/contributors/obss/react-validatable-form)](https://github.com/obss/react-validatable-form/graphs/contributors) 
+[![Github Issues](https://img.shields.io/github/issues/obss/react-validatable-form.svg)](https://github.com/obss/react-validatable-form/issues)
+[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/obss/react-validatable-form)](https://github.com/obss/react-validatable-form)
+[![Downloads](https://img.shields.io/npm/dw/react-validatable-form.svg)](https://www.npmjs.com/package/react-validatable-form)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/react-validatable-form)](https://www.npmjs.com/package/react-validatable-form)
 
 ---
 
@@ -105,6 +111,11 @@ const MyComponent = () => {
             id="val"
         />
         <div className="errorText">{get(validationError, 'val') || ' '}</div>
+        <div>
+            <button onClick={() => setFormIsSubmitted()}>
+               Submit Form
+            </button>
+        </div>
     </>;
 };
 ```
