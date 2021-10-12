@@ -16,8 +16,8 @@
 
 -  [Getting Started](#getting-started)
 
-    -  [Setup ReactValidatableFormProvider](#setup-provider)
-    -  [useValidatableForm Hook Usage](#hook-usage)
+    -  [Setup ReactValidatableFormProvider](#setup-reactvalidatableformprovider)
+    -  [useValidatableForm Hook Usage](#usevalidatableform-hook-usage)
 
 -  [Examples](#examples)
 
