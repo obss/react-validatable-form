@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import { get, set, isEmpty } from 'lodash';
+import get from 'lodash.get';
+import set from 'lodash.set';
 import ReactValidatableFormContext from './ReactValidatableFormContext';
 import { handleValidationsOfForm } from './operations/ValidationOperations';
 import { isNullOrUndefined } from './utils/ControlUtils';
@@ -180,7 +181,7 @@ const useValidatableForm = (props) => {
         }
     };
 
-    const isValid = isEmpty(Object.keys(validationErrorOriginalResult));
+    const isValid = Object.keys(validationErrorOriginalResult).length < 1;
 
     let validationError = { ...validationErrorOriginalResult };
     let finalHideBeforeSubmit = getFinalPropValueFromHookOrContext('hideBeforeSubmit', props, context);

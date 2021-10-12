@@ -10,6 +10,10 @@ export const isFunction = (functionToCheck) => {
     return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
 };
 
+export const isValidDate = (date) => {
+    return date && Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date);
+};
+
 export const isNullOrUndefined = (param) => {
     const result = param === undefined || param === null;
     return result;

@@ -1,6 +1,15 @@
-import { get, isArray, isDate, isEmpty, isFunction, isString } from 'lodash';
+import get from 'lodash.get';
 import { DEFAULT_LANG } from '../constants/Constants';
-import { defaultFormatDate, isEmptyString, isValidEmail, isValidIban, isValidUrl } from '../utils/ControlUtils';
+import {
+    defaultFormatDate,
+    isEmptyString,
+    isFunction,
+    isString,
+    isValidDate,
+    isValidEmail,
+    isValidIban,
+    isValidUrl,
+} from '../utils/ControlUtils';
 
 const COMPARISON_KEYS = [
     'equalTo',
@@ -13,7 +22,7 @@ const COMPARISON_KEYS = [
 
 const isEmptyStringOrArray = (value) => {
     if (Array.isArray(value)) {
-        return isEmpty(value);
+        return value.length < 1;
     }
     return isEmptyString(value);
 };
@@ -70,7 +79,7 @@ export const handleValidationsOfForm = (validationParams) => {
             if (listPath && path) {
                 throw `useValidatableForm error. Only one of "path" or "listPath" keys should exist in validation definitions`;
             }
-            if (dependantPaths && !isArray(dependantPaths)) {
+            if (dependantPaths && !Array.isArray(dependantPaths)) {
                 throw `useValidatableForm error. "dependantPaths" key should be an array`;
             }
             let ruleArrayOfKey = [];
@@ -306,14 +315,14 @@ const handleGeneralComparison = (ruleParams) => {
     let currentValue = null;
     let targetValue = null;
     if (currentRule === 'date') {
-        if (!isDate(valueToBeCompared)) {
+        if (!isValidDate(valueToBeCompared)) {
             const errorMessageParams = {
                 context,
                 messageKey: 'valueIsNotAValidDate',
             };
             return getGeneralErrorMessageByKey(errorMessageParams);
         }
-        if (!isDate(comparisonValue)) {
+        if (!isValidDate(comparisonValue)) {
             const errorMessageParams = {
                 context,
                 messageKey: 'comparisonValueIsNotAValidDate',
