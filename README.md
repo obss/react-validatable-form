@@ -33,7 +33,7 @@
   
 
 ---
-  
+
 
 ## Install
 
@@ -54,7 +54,7 @@ or
 
 ```shell
 
-npm install --save react-validatable-form
+npm install react-validatable-form
 
 ```
 
