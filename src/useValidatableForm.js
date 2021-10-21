@@ -138,6 +138,11 @@ const useValidatableForm = (props) => {
         return isValid;
     };
 
+    const resetForm = () => {
+        setFormIsSubmitted(false);
+        setBlurPathList([]);
+    };
+
     const runValidations = (runParams) => {
         const { newFormData, newRules, pathToBeRun } = runParams || {};
         const rules = newRules ? newRules : currentRules;
@@ -200,6 +205,7 @@ const useValidatableForm = (props) => {
 
     const restFunctions = {
         forceRunAllValidations: runValidations,
+        resetForm: resetForm,
         setPathValue: setPathValue,
         setFormData: handleSetFormData,
         setRules: handleSetCurrentRules,
