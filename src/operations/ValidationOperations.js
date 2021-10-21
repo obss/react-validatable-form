@@ -287,13 +287,26 @@ const handleGeneralComparison = (ruleParams) => {
             break;
         }
     }
-    if (!comparisonKey) {
-        throw `useValidatableForm error. comparison key is not found on rule "${currentRule}" of path: ${path}`;
-    }
 
     let valueToBeCompared = value;
     if (currentRule === 'length' || currentRule === 'listSize') {
         valueToBeCompared = value ? value.length : 0;
+    }
+    if (currentRule === 'date') {
+        if (!isValidDate(valueToBeCompared)) {
+            const errorMessageParams = {
+                context,
+                messageKey: 'valueIsNotAValidDate',
+            };
+            return getGeneralErrorMessageByKey(errorMessageParams);
+        }
+    }
+
+    if (!comparisonKey) {
+        if (currentRule === 'date') {
+            return null;
+        }
+        throw `useValidatableForm error. comparison key is not found on rule "${currentRule}" of path: ${path}`;
     }
 
     let comparisonValue = null;
@@ -315,13 +328,6 @@ const handleGeneralComparison = (ruleParams) => {
     let currentValue = null;
     let targetValue = null;
     if (currentRule === 'date') {
-        if (!isValidDate(valueToBeCompared)) {
-            const errorMessageParams = {
-                context,
-                messageKey: 'valueIsNotAValidDate',
-            };
-            return getGeneralErrorMessageByKey(errorMessageParams);
-        }
         if (!isValidDate(comparisonValue)) {
             const errorMessageParams = {
                 context,
