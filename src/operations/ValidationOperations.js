@@ -8,6 +8,7 @@ import {
     isValidDate,
     isValidEmail,
     isValidIban,
+    isValidNumber,
     isValidUrl,
 } from '../utils/ControlUtils';
 
@@ -289,9 +290,31 @@ const handleGeneralComparison = (ruleParams) => {
     }
 
     let valueToBeCompared = value;
-    if (currentRule === 'length' || currentRule === 'listSize') {
+    if (currentRule === 'number') {
+        valueToBeCompared = isEmptyString(value) ? undefined : Number(value);
+    } else if (currentRule === 'length' || currentRule === 'listSize') {
         valueToBeCompared = value ? value.length : 0;
     }
+
+    if (currentRule === 'number') {
+        if (!isValidNumber(valueToBeCompared)) {
+            const errorMessageParams = {
+                context,
+                messageKey: 'valueIsNotAValidNumber',
+            };
+            return getGeneralErrorMessageByKey(errorMessageParams);
+        }
+        if (options.onlyIntegers) {
+            if (!Number.isInteger(valueToBeCompared)) {
+                const errorMessageParams = {
+                    context,
+                    messageKey: 'valueIsNotAnInteger',
+                };
+                return getGeneralErrorMessageByKey(errorMessageParams);
+            }
+        }
+    }
+
     if (currentRule === 'date') {
         if (!isValidDate(valueToBeCompared)) {
             const errorMessageParams = {
@@ -304,6 +327,9 @@ const handleGeneralComparison = (ruleParams) => {
 
     if (!comparisonKey) {
         if (currentRule === 'date') {
+            return null;
+        }
+        if (currentRule === 'number') {
             return null;
         }
         throw `useValidatableForm error. comparison key is not found on rule "${currentRule}" of path: ${path}`;
@@ -342,8 +368,15 @@ const handleGeneralComparison = (ruleParams) => {
         );
         targetValue = Date.UTC(comparisonValue.getFullYear(), comparisonValue.getMonth(), comparisonValue.getDate());
     } else {
-        currentValue = parseInt(valueToBeCompared);
-        targetValue = parseInt(comparisonValue);
+        currentValue = valueToBeCompared;
+        targetValue = Number(comparisonValue);
+        if (!isValidNumber(targetValue)) {
+            const errorMessageParams = {
+                context,
+                messageKey: 'comparisonValueIsNotAValidNumber',
+            };
+            return getGeneralErrorMessageByKey(errorMessageParams);
+        }
     }
 
     const compareParams = {

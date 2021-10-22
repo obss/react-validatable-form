@@ -6,6 +6,10 @@ export const isString = (param) => {
     return typeof param === 'string';
 };
 
+export const isValidNumber = (param) => {
+    return !isNaN(param);
+};
+
 export const isFunction = (functionToCheck) => {
     return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
 };

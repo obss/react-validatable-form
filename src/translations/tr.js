@@ -1,6 +1,9 @@
 const tr = {
     comparisonValueNotFound: 'Kıyas yapılacak değer bulunamadı',
+    valueIsNotAValidNumber: 'Girilen değer geçerli bir sayı değil',
+    valueIsNotAnInteger: 'Girilen değer bir tam sayı değil',
     valueIsNotAValidDate: 'Girilen değer geçerli bir tarih değil',
+    comparisonValueIsNotAValidNumber: 'Kıyas yapılacak değer geçerli bir sayı değil',
     comparisonValueIsNotAValidDate: 'Kıyas yapılacak değer geçerli bir tarih değil',
     required: 'Bu alan zorunludur',
     email: 'Geçerli bir email değil',

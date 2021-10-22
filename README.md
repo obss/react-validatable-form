@@ -18,7 +18,7 @@
 ## Table of Contents <!-- omit in toc -->
 
   
--  [Install](#install)
+-  [Installation](#installation)
 
 -  [Getting Started](#getting-started)
 
@@ -35,7 +35,7 @@
 ---
 
 
-## Install
+## Installation
 
 
 **react-validatable-form** requires:

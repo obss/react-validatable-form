@@ -1,6 +1,9 @@
 const en = {
     comparisonValueNotFound: 'Comparison value could not be found',
+    valueIsNotAValidNumber: 'Value is not a valid number',
+    valueIsNotAnInteger: 'Value is not an integer',
     valueIsNotAValidDate: 'Value is not a valid date',
+    comparisonValueIsNotAValidNumber: 'Comparison value is not a valid number',
     comparisonValueIsNotAValidDate: 'Comparison value is not a valid date',
     required: 'This field is required',
     email: 'Not a valid email',
