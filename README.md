@@ -95,8 +95,8 @@ const initialFormData = {};
 const rules = [{ path: 'val', ruleSet: [{ rule: 'required' }] }];
 
 const MyComponent = () => {
-    const [isValid, validationError, formData, 
-    { setPathValue, setFormIsSubmitted, setPathIsBlurred }] = 
+    const { isValid, validationError, formData, 
+    setPathValue, setFormIsSubmitted, setPathIsBlurred } = 
     useValidatableForm({
         rules,
         initialFormData,

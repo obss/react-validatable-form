@@ -203,7 +203,10 @@ const useValidatableForm = (props) => {
         }
     }
 
-    const restFunctions = {
+    return {
+        isValid: isValid,
+        validationError: validationError,
+        formData: currentFormData,
         forceRunAllValidations: runValidations,
         resetForm: resetForm,
         setPathValue: setPathValue,
@@ -212,8 +215,6 @@ const useValidatableForm = (props) => {
         setFormIsSubmitted: handleSetFormIsSubmitted,
         setPathIsBlurred: setPathIsBlurred,
     };
-
-    return [isValid, validationError, currentFormData, restFunctions];
 };
 
 export default useValidatableForm;
