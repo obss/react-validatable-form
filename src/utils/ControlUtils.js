@@ -144,7 +144,49 @@ const mod97 = (string) => {
     return checksum;
 };
 
-export const defaultFormatDate = (date) => {
+export const defaultEnFormatDate = (date) => {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    let year = date.getFullYear();
+
+    if (month.length < 2) {
+        month = '0' + month;
+    }
+    if (day.length < 2) {
+        day = '0' + day;
+    }
+
+    const result = [month, day, year].join('/');
+    return result;
+};
+
+export const defaultEnFormatDateWithTime = (date) => {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    let year = date.getFullYear();
+    let hours = '' + date.getHours();
+    let minutes = '' + date.getMinutes();
+
+    if (month.length < 2) {
+        month = '0' + month;
+    }
+    if (day.length < 2) {
+        day = '0' + day;
+    }
+
+    if (hours.length < 2) {
+        hours = '0' + hours;
+    }
+    if (minutes.length < 2) {
+        minutes = '0' + minutes;
+    }
+
+    let result = [month, day, year].join('/');
+    result += ' ' + hours + ':' + minutes;
+    return result;
+};
+
+export const defaultTrFormatDate = (date) => {
     let month = '' + (date.getMonth() + 1);
     let day = '' + date.getDate();
     let year = date.getFullYear();
@@ -157,5 +199,31 @@ export const defaultFormatDate = (date) => {
     }
 
     const result = [day, month, year].join('.');
+    return result;
+};
+
+export const defaultTrFormatDateWithTime = (date) => {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    let year = date.getFullYear();
+    let hours = '' + date.getHours();
+    let minutes = '' + date.getMinutes();
+
+    if (month.length < 2) {
+        month = '0' + month;
+    }
+    if (day.length < 2) {
+        day = '0' + day;
+    }
+
+    if (hours.length < 2) {
+        hours = '0' + hours;
+    }
+    if (minutes.length < 2) {
+        minutes = '0' + minutes;
+    }
+
+    let result = [day, month, year].join('.');
+    result += ' ' + hours + ':' + minutes;
     return result;
 };

@@ -1,7 +1,10 @@
 import get from 'lodash.get';
 import { DEFAULT_LANG } from '../constants/Constants';
 import {
-    defaultFormatDate,
+    defaultEnFormatDate,
+    defaultEnFormatDateWithTime,
+    defaultTrFormatDate,
+    defaultTrFormatDateWithTime,
     isEmptyString,
     isFunction,
     isString,
@@ -293,7 +296,7 @@ const handleGeneralComparison = (ruleParams) => {
     if (currentRule === 'number') {
         valueToBeCompared = isEmptyString(value) ? undefined : Number(value);
     } else if (currentRule === 'length' || currentRule === 'listSize') {
-        valueToBeCompared = value ? value.length : 0;
+        valueToBeCompared = value && value.length ? value.length : 0;
     }
 
     if (currentRule === 'number') {
@@ -361,12 +364,33 @@ const handleGeneralComparison = (ruleParams) => {
             };
             return getGeneralErrorMessageByKey(errorMessageParams);
         }
-        currentValue = Date.UTC(
-            valueToBeCompared.getFullYear(),
-            valueToBeCompared.getMonth(),
-            valueToBeCompared.getDate()
-        );
-        targetValue = Date.UTC(comparisonValue.getFullYear(), comparisonValue.getMonth(), comparisonValue.getDate());
+        if (options.withTime) {
+            currentValue = Date.UTC(
+                valueToBeCompared.getFullYear(),
+                valueToBeCompared.getMonth(),
+                valueToBeCompared.getDate(),
+                valueToBeCompared.getHours(),
+                valueToBeCompared.getMinutes()
+            );
+            targetValue = Date.UTC(
+                comparisonValue.getFullYear(),
+                comparisonValue.getMonth(),
+                comparisonValue.getDate(),
+                comparisonValue.getHours(),
+                comparisonValue.getMinutes()
+            );
+        } else {
+            currentValue = Date.UTC(
+                valueToBeCompared.getFullYear(),
+                valueToBeCompared.getMonth(),
+                valueToBeCompared.getDate()
+            );
+            targetValue = Date.UTC(
+                comparisonValue.getFullYear(),
+                comparisonValue.getMonth(),
+                comparisonValue.getDate()
+            );
+        }
     } else {
         currentValue = valueToBeCompared;
         targetValue = Number(comparisonValue);
@@ -395,7 +419,14 @@ const handleGeneralComparison = (ruleParams) => {
     let errorMessageValue = currentValue;
     let errorMessageComparisonValue = comparisonValue;
     if (currentRule === 'date') {
-        const dateFormatFunction = context.dateFormatterFunction || defaultFormatDate;
+        const defaultFormatDate = context.lang === 'tr' ? defaultTrFormatDate : defaultEnFormatDate;
+        const defaultFormatDateWithTime =
+            context.lang === 'tr' ? defaultTrFormatDateWithTime : defaultEnFormatDateWithTime;
+        const defaultFormatterFunction = options.withTime ? defaultFormatDateWithTime : defaultFormatDate;
+        const contextDateFormatFunction = options.withTime
+            ? context.dateWithTimeFormatterFunction
+            : context.dateFormatterFunction;
+        const dateFormatFunction = contextDateFormatFunction || defaultFormatterFunction;
         const currentDateValue = new Date(currentValue);
         errorMessageValue = dateFormatFunction(currentDateValue);
         const comparisonDateValue = new Date(comparisonValue);

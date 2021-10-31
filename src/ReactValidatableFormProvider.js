@@ -9,6 +9,8 @@ const ReactValidatableFormProvider = (props) => {
         customRules,
         lang,
         translations,
+        dateFormatterFunction,
+        dateWithTimeFormatterFunction,
         hideBeforeSubmit,
         showAfterBlur,
         focusToErrorAfterSubmit,
@@ -45,6 +47,8 @@ const ReactValidatableFormProvider = (props) => {
         contextValue.lang = lang;
     }
 
+    contextValue.dateFormatterFunction = dateFormatterFunction;
+    contextValue.dateWithTimeFormatterFunction = dateWithTimeFormatterFunction;
     contextValue.hideBeforeSubmit = hideBeforeSubmit;
     contextValue.showAfterBlur = showAfterBlur;
     contextValue.focusToErrorAfterSubmit = focusToErrorAfterSubmit;
