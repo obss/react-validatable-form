@@ -144,26 +144,30 @@ const useValidatableForm = (props) => {
     };
 
     const runValidations = (runParams) => {
-        const { newFormData, newRules, pathToBeRun } = runParams || {};
-        const rules = newRules ? newRules : currentRules;
-        const formData = newFormData ? newFormData : currentFormData;
-        const validationParams = {
-            currentValidationError: validationErrorOriginalResult,
-            context,
-            rules,
-            formData,
-            pathToBeRun,
-        };
-        const newValidationErrorOriginalResult = handleValidationsOfForm(validationParams);
-        setValidationErrorOriginalResult(newValidationErrorOriginalResult);
+        setValidationErrorOriginalResult((latestValidationErrorOriginalResult) => {
+            const { newFormData, newRules, pathToBeRun } = runParams || {};
+            const rules = newRules ? newRules : currentRules;
+            const formData = newFormData ? newFormData : currentFormData;
+            const validationParams = {
+                currentValidationError: latestValidationErrorOriginalResult,
+                context,
+                rules,
+                formData,
+                pathToBeRun,
+            };
+            const newValidationErrorOriginalResult = handleValidationsOfForm(validationParams);
+            return newValidationErrorOriginalResult;
+        });
     };
 
     const setPathValue = (path, value) => {
-        const newFormData = { ...currentFormData };
-        set(newFormData, path, value);
-        let pathToBeRun = path;
-        runValidations({ newFormData, pathToBeRun });
-        setCurrentFormData(newFormData);
+        setCurrentFormData((latestFormData) => {
+            const newFormData = { ...latestFormData };
+            set(newFormData, path, value);
+            let pathToBeRun = path;
+            runValidations({ newFormData, pathToBeRun });
+            return newFormData;
+        });
     };
 
     const handleSetCurrentRules = (newRules) => {
@@ -178,11 +182,13 @@ const useValidatableForm = (props) => {
 
     const setPathIsBlurred = (path) => {
         if (path) {
-            const newBlurPathList = [...blurPathList];
-            if (!newBlurPathList.includes(path)) {
-                newBlurPathList.push(path);
-                setBlurPathList(newBlurPathList);
-            }
+            setBlurPathList((latestBlurPathList) => {
+                const newBlurPathList = [...latestBlurPathList];
+                if (!newBlurPathList.includes(path)) {
+                    newBlurPathList.push(path);
+                }
+                return newBlurPathList;
+            });
         }
     };
 
