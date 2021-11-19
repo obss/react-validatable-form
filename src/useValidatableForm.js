@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import get from 'lodash.get';
 import set from 'lodash.set';
 import ReactValidatableFormContext from './ReactValidatableFormContext';
@@ -160,15 +160,18 @@ const useValidatableForm = (props) => {
         });
     };
 
-    const setPathValue = (path, value) => {
-        setCurrentFormData((latestFormData) => {
-            const newFormData = { ...latestFormData };
-            set(newFormData, path, value);
-            let pathToBeRun = path;
-            runValidations({ newFormData, pathToBeRun });
-            return newFormData;
-        });
-    };
+    const setPathValue = useCallback(
+        (path, value) => {
+            setCurrentFormData((latestFormData) => {
+                const newFormData = { ...latestFormData };
+                set(newFormData, path, value);
+                let pathToBeRun = path;
+                runValidations({ newFormData, pathToBeRun });
+                return newFormData;
+            });
+        },
+        [context, currentRules, setCurrentFormData, setValidationErrorOriginalResult]
+    );
 
     const handleSetCurrentRules = (newRules) => {
         runValidations({ newRules });
@@ -180,17 +183,20 @@ const useValidatableForm = (props) => {
         setCurrentFormData(newFormData);
     };
 
-    const setPathIsBlurred = (path) => {
-        if (path) {
-            setBlurPathList((latestBlurPathList) => {
-                const newBlurPathList = [...latestBlurPathList];
-                if (!newBlurPathList.includes(path)) {
-                    newBlurPathList.push(path);
-                }
-                return newBlurPathList;
-            });
-        }
-    };
+    const setPathIsBlurred = useCallback(
+        (path) => {
+            if (path) {
+                setBlurPathList((latestBlurPathList) => {
+                    const newBlurPathList = [...latestBlurPathList];
+                    if (!newBlurPathList.includes(path)) {
+                        newBlurPathList.push(path);
+                    }
+                    return newBlurPathList;
+                });
+            }
+        },
+        [context, currentRules, setBlurPathList, setValidationErrorOriginalResult]
+    );
 
     const isValid = Object.keys(validationErrorOriginalResult).length < 1;
 

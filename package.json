@@ -1,6 +1,6 @@
 {
   "name": "react-validatable-form",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "React validatable form hook that is used to make dynamic client side validations on react forms",
   "keywords": [
     "react",
