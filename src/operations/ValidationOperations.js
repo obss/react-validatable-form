@@ -286,7 +286,8 @@ const handleGeneralComparison = (ruleParams) => {
     let comparisonKey = null;
     for (let i = 0; i < COMPARISON_KEYS.length; i++) {
         const candidateKey = COMPARISON_KEYS[i];
-        if (options[candidateKey]) {
+        const canditateValue = options[candidateKey];
+        if (!isEmptyString(canditateValue)) {
             comparisonKey = candidateKey;
             break;
         }
@@ -346,7 +347,7 @@ const handleGeneralComparison = (ruleParams) => {
         comparisonValue = options[comparisonKey];
     }
 
-    if (!comparisonValue) {
+    if (isEmptyString(comparisonValue)) {
         const errorMessageParams = {
             context,
             messageKey: 'comparisonValueNotFound',

@@ -1,6 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import get from 'lodash.get';
 import set from 'lodash.set';
+import unset from 'lodash.unset';
 import ReactValidatableFormContext from './ReactValidatableFormContext';
 import { handleValidationsOfForm } from './operations/ValidationOperations';
 import { isNullOrUndefined } from './utils/ControlUtils';
@@ -173,6 +174,19 @@ const useValidatableForm = (props) => {
         [context, currentRules, setCurrentFormData, setValidationErrorOriginalResult]
     );
 
+    const unsetPathValue = useCallback(
+        (path) => {
+            setCurrentFormData((latestFormData) => {
+                const newFormData = { ...latestFormData };
+                unset(newFormData, path);
+                let pathToBeRun = path;
+                runValidations({ newFormData, pathToBeRun });
+                return newFormData;
+            });
+        },
+        [context, currentRules, setCurrentFormData, setValidationErrorOriginalResult]
+    );
+
     const handleSetCurrentRules = (newRules) => {
         runValidations({ newRules });
         setCurrentRules(newRules);
@@ -180,6 +194,12 @@ const useValidatableForm = (props) => {
 
     const handleSetFormData = (newFormData, pathToBeRun) => {
         runValidations({ newFormData, pathToBeRun });
+        setCurrentFormData(newFormData);
+    };
+
+    const handleSetFormDataAndCurrentRules = (newFormData, newRules) => {
+        runValidations({ newFormData, newRules });
+        setCurrentRules(newRules);
         setCurrentFormData(newFormData);
     };
 
@@ -215,17 +235,29 @@ const useValidatableForm = (props) => {
         }
     }
 
+    const getValue = (path) => {
+        return get(currentFormData, path);
+    };
+
+    const getError = (path) => {
+        return get(validationError, path);
+    };
+
     return {
         isValid: isValid,
         validationError: validationError,
-        formData: currentFormData,
+        formData: currentFormData || {},
         forceRunAllValidations: runValidations,
         resetForm: resetForm,
         setPathValue: setPathValue,
+        unsetPathValue: unsetPathValue,
         setFormData: handleSetFormData,
         setRules: handleSetCurrentRules,
+        setFormDataAndRules: handleSetFormDataAndCurrentRules,
         setFormIsSubmitted: handleSetFormIsSubmitted,
         setPathIsBlurred: setPathIsBlurred,
+        getValue: getValue,
+        getError: getError,
     };
 };
 
