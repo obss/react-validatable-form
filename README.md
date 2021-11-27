@@ -89,14 +89,13 @@ const App = () => {
 
 ```js
 import { useValidatableForm } from 'react-validatable-form';
-import get from 'lodash.get';
 
 const initialFormData = {};
 const rules = [{ path: 'val', ruleSet: [{ rule: 'required' }] }];
 
 const MyComponent = () => {
-    const { isValid, validationError, formData, 
-    setPathValue, setFormIsSubmitted, setPathIsBlurred } = 
+    const { isValid, formData, setPathValue, 
+    setFormIsSubmitted, setPathIsBlurred, getValue, getError } = 
     useValidatableForm({
         rules,
         initialFormData,
@@ -105,12 +104,12 @@ const MyComponent = () => {
     return <>
         <input
             type="text"
-            value={get(formData, 'val') || ''}
+            value={getValue('val') || ''}
             onChange={(e) => setPathValue('val', e.target.value)}
             onBlur={() => setPathIsBlurred('val')}
             id="val"
         />
-        <div className="errorText">{get(validationError, 'val') || ' '}</div>
+        <div className="errorText">{getError('val') || ' '}</div>
         <div>
             <button onClick={() => setFormIsSubmitted()}>
                Submit Form
