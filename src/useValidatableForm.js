@@ -246,6 +246,7 @@ const useValidatableForm = (props) => {
     return {
         isValid: isValid,
         validationError: validationError,
+        validationErrorOriginalResult: validationErrorOriginalResult,
         formData: currentFormData || {},
         forceRunAllValidations: runValidations,
         resetForm: resetForm,
