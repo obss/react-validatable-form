@@ -153,7 +153,7 @@ const useValidatableForm = (props) => {
                 currentValidationError: latestValidationErrorOriginalResult,
                 context,
                 rules,
-                formData,
+                formData: formData || {},
                 pathToBeRun,
             };
             const newValidationErrorOriginalResult = handleValidationsOfForm(validationParams);
