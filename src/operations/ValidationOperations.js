@@ -32,7 +32,7 @@ const isEmptyStringOrArray = (value) => {
 };
 
 export const handleValidationsOfForm = (validationParams) => {
-    const { rules, formData, context, currentValidationError, pathToBeRun } = validationParams;
+    const { rules, formData = {}, context, currentValidationError, pathToBeRun } = validationParams;
 
     let validationErrorOriginalResult = {};
 
