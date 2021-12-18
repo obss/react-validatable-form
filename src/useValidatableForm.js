@@ -149,6 +149,9 @@ const useValidatableForm = (props) => {
             const { newFormData, newRules, pathToBeRun } = runParams || {};
             const rules = newRules ? newRules : currentRules;
             const formData = newFormData ? newFormData : currentFormData;
+            console.log(formData);
+            console.log(rules);
+            console.log(pathToBeRun);
             const validationParams = {
                 currentValidationError: latestValidationErrorOriginalResult,
                 context,
@@ -187,17 +190,29 @@ const useValidatableForm = (props) => {
         [context, currentRules, setCurrentFormData, setValidationErrorOriginalResult]
     );
 
-    const handleSetCurrentRules = (newRules = []) => {
+    const handleSetCurrentRules = (newRules) => {
+        if (!newRules) {
+            newRules = [];
+        }
         runValidations({ newRules });
         setCurrentRules(newRules);
     };
 
-    const handleSetFormData = (newFormData = {}, pathToBeRun) => {
+    const handleSetFormData = (newFormData, pathToBeRun) => {
+        if (!newFormData) {
+            newFormData = {};
+        }
         runValidations({ newFormData, pathToBeRun });
         setCurrentFormData(newFormData);
     };
 
-    const handleSetFormDataAndCurrentRules = (newFormData = {}, newRules = []) => {
+    const handleSetFormDataAndCurrentRules = (newFormData, newRules) => {
+        if (!newFormData) {
+            newFormData = {};
+        }
+        if (!newRules) {
+            newRules = [];
+        }
         runValidations({ newFormData, newRules });
         setCurrentRules(newRules);
         setCurrentFormData(newFormData);
