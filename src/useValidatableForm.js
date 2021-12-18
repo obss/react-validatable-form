@@ -187,17 +187,17 @@ const useValidatableForm = (props) => {
         [context, currentRules, setCurrentFormData, setValidationErrorOriginalResult]
     );
 
-    const handleSetCurrentRules = (newRules) => {
+    const handleSetCurrentRules = (newRules = []) => {
         runValidations({ newRules });
         setCurrentRules(newRules);
     };
 
-    const handleSetFormData = (newFormData, pathToBeRun) => {
+    const handleSetFormData = (newFormData = {}, pathToBeRun) => {
         runValidations({ newFormData, pathToBeRun });
         setCurrentFormData(newFormData);
     };
 
-    const handleSetFormDataAndCurrentRules = (newFormData, newRules) => {
+    const handleSetFormDataAndCurrentRules = (newFormData = {}, newRules = []) => {
         runValidations({ newFormData, newRules });
         setCurrentRules(newRules);
         setCurrentFormData(newFormData);
