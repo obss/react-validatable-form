@@ -149,9 +149,6 @@ const useValidatableForm = (props) => {
             const { newFormData, newRules, pathToBeRun } = runParams || {};
             const rules = newRules ? newRules : currentRules;
             const formData = newFormData ? newFormData : currentFormData;
-            console.log(formData);
-            console.log(rules);
-            console.log(pathToBeRun);
             const validationParams = {
                 currentValidationError: latestValidationErrorOriginalResult,
                 context,
