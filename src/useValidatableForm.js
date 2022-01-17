@@ -4,7 +4,7 @@ import set from 'lodash.set';
 import unset from 'lodash.unset';
 import ReactValidatableFormContext from './ReactValidatableFormContext';
 import { handleValidationsOfForm } from './operations/ValidationOperations';
-import { isNullOrUndefined } from './utils/ControlUtils';
+import { isNullOrUndefined, isString } from './utils/ControlUtils';
 
 const findDuplicates = (arry) => arry.filter((item, index) => arry.indexOf(item) !== index);
 
@@ -163,6 +163,9 @@ const useValidatableForm = (props) => {
 
     const setPathValue = useCallback(
         (path, value) => {
+            if (!isString(path)) {
+                throw `useValidatableForm error. "path" parameter of setPathValue should be a string`;
+            }
             setCurrentFormData((latestFormData) => {
                 const newFormData = { ...latestFormData };
                 set(newFormData, path, value);
@@ -176,6 +179,9 @@ const useValidatableForm = (props) => {
 
     const unsetPathValue = useCallback(
         (path) => {
+            if (!isString(path)) {
+                throw `useValidatableForm error. "path" parameter of unsetPathValue should be a string`;
+            }
             setCurrentFormData((latestFormData) => {
                 const newFormData = { ...latestFormData };
                 unset(newFormData, path);
@@ -218,6 +224,9 @@ const useValidatableForm = (props) => {
     const setPathIsBlurred = useCallback(
         (path) => {
             if (path) {
+                if (!isString(path)) {
+                    throw `useValidatableForm error. "path" parameter of setPathIsBlurred should be a string`;
+                }
                 setBlurPathList((latestBlurPathList) => {
                     const newBlurPathList = [...latestBlurPathList];
                     if (!newBlurPathList.includes(path)) {

@@ -99,6 +99,14 @@ export const handleValidationsOfForm = (validationParams) => {
                 throw `useValidatableForm error. Only one of "ruleSet" or "subRules" keys should exist in validation definitions`;
             }
 
+            if (path && !isString(path)) {
+                throw `useValidatableForm error. "path" key should be a string`;
+            }
+
+            if (listPath && !isString(listPath)) {
+                throw `useValidatableForm error. "listPath" key should be a string`;
+            }
+
             if (ruleSetOfKey) {
                 if (Array.isArray(ruleSetOfKey)) {
                     ruleArrayOfKey = [...ruleSetOfKey];
