@@ -239,6 +239,23 @@ const useValidatableForm = (props) => {
         [context, currentRules, setBlurPathList, setValidationErrorOriginalResult]
     );
 
+    const unsetPathIsBlurred = useCallback(
+        (path) => {
+            if (path) {
+                if (!isString(path)) {
+                    throw `useValidatableForm error. "path" parameter of unsetPathIsBlurred should be a string`;
+                }
+                setBlurPathList((latestBlurPathList) => {
+                    const newBlurPathList = latestBlurPathList.filter((p) => {
+                        return p !== path;
+                    });
+                    return newBlurPathList;
+                });
+            }
+        },
+        [context, currentRules, setBlurPathList, setValidationErrorOriginalResult]
+    );
+
     const isValid = Object.keys(validationErrorOriginalResult).length < 1;
 
     let validationError = { ...validationErrorOriginalResult };
@@ -278,6 +295,7 @@ const useValidatableForm = (props) => {
         setFormDataAndRules: handleSetFormDataAndCurrentRules,
         setFormIsSubmitted: handleSetFormIsSubmitted,
         setPathIsBlurred: setPathIsBlurred,
+        unsetPathIsBlurred: unsetPathIsBlurred,
         getValue: getValue,
         getError: getError,
     };
