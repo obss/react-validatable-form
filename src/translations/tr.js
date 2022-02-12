@@ -10,6 +10,7 @@ const tr = {
     url: 'Geçerli bir web adresi değil',
     iban: 'Geçerli bir IBAN değil',
     equality: 'Geçerli bir değer değil',
+    includes: 'Girilen değer "${comparisonValue}" değerini içermelidir',
     regex: 'Geçerli bir değer değil',
     unique: 'Benzersiz bir değer değil',
     'number.equalTo': 'Girilen değer ${comparisonValue} değerine eşit olmalıdır',

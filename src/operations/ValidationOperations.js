@@ -7,6 +7,7 @@ import {
     defaultTrFormatDateWithTime,
     isEmptyString,
     isFunction,
+    isNullOrUndefined,
     isString,
     isValidDate,
     isValidEmail,
@@ -505,6 +506,63 @@ const handleEqualityControl = (ruleParams) => {
             options,
             rule: currentRule,
             indexOfList,
+            comparisonValue,
+        };
+        return getErrorMessage(errorMessageParams);
+    }
+    return null;
+};
+
+const handleIncludesControl = (ruleParams) => {
+    const { context, formData, options, currentRule, value, path, indexOfList } = ruleParams;
+
+    if (isEmptyStringOrArray(value) && !options.applyToNulls) {
+        return null;
+    }
+
+    const { includes } = options;
+
+    if (!includes) {
+        throw `useValidatableForm error. includes key is not found on rule "${currentRule}" of path: ${path}`;
+    }
+
+    let comparisonValue = null;
+    if (isFunction(includes)) {
+        comparisonValue = includes(formData, indexOfList);
+    } else {
+        comparisonValue = includes;
+    }
+
+    if (!comparisonValue) {
+        const errorMessageParams = {
+            context,
+            messageKey: 'comparisonValueNotFound',
+        };
+        return getGeneralErrorMessageByKey(errorMessageParams);
+    }
+
+    let valueToCompare = value;
+
+    if (isNullOrUndefined(valueToCompare)) {
+        valueToCompare = '';
+    }
+
+    if (!isString(valueToCompare)) {
+        valueToCompare = value.toString();
+    }
+
+    if (!isString(comparisonValue)) {
+        throw `useValidatableForm error. comparisonValue is not string on rule "${currentRule}" of path: ${path}`;
+    }
+
+    if (!valueToCompare.includes(comparisonValue)) {
+        const errorMessageParams = {
+            context,
+            value: valueToCompare,
+            options,
+            rule: currentRule,
+            indexOfList,
+            comparisonValue,
         };
         return getErrorMessage(errorMessageParams);
     }
@@ -653,6 +711,7 @@ export const VALIDATION_OPERATIONS_MAP = {
     url: handleStringControl,
     iban: handleStringControl,
     equality: handleEqualityControl,
+    includes: handleIncludesControl,
     regex: handleRegexControl,
     unique: handleUniqueControl,
 };

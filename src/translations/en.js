@@ -10,6 +10,7 @@ const en = {
     url: 'Not a valid url',
     iban: 'Not a valid IBAN',
     equality: 'Not a valid value',
+    includes: 'Value should include "${comparisonValue}"',
     regex: 'Not a valid value',
     unique: 'Not a unique value',
     'number.equalTo': 'Value should be equal to ${comparisonValue}',
