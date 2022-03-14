@@ -670,8 +670,8 @@ const getErrorMessage = (errorMessageParams) => {
     if (!messageToBeReturned) {
         throw `useValidatableForm error. Validation result could not be found while validating rule "${rule}" on value ${value}`;
     }
-    messageToBeReturned = messageToBeReturned.replaceAll('${value}', value);
-    messageToBeReturned = messageToBeReturned.replaceAll('${comparisonValue}', comparisonValue);
+    messageToBeReturned = messageToBeReturned.split('${value}').join(value);
+    messageToBeReturned = messageToBeReturned.split('${comparisonValue}').join(comparisonValue);
     return messageToBeReturned;
 };
 
