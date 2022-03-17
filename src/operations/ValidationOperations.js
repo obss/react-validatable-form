@@ -8,6 +8,7 @@ import {
     isEmptyString,
     isFunction,
     isNullOrUndefined,
+    isObject,
     isString,
     isValidDate,
     isValidEmail,
@@ -232,9 +233,25 @@ export const handleValidationsOfForm = (validationParams) => {
                         };
                         const isEnabled = handleIsValidationEnabled(ruleParams);
                         if (isEnabled) {
-                            const currentValidationResult = ruleFunction(ruleParams);
-                            if (currentValidationResult) {
-                                validationErrorOriginalResult[fullPath] = currentValidationResult;
+                            const resultErrorMessageParams = ruleFunction(ruleParams);
+                            if (resultErrorMessageParams) {
+                                let validationErrorResult = null;
+                                if (isString(resultErrorMessageParams)) {
+                                    validationErrorResult = resultErrorMessageParams;
+                                } else if (isObject(resultErrorMessageParams)) {
+                                    resultErrorMessageParams.context = context;
+                                    resultErrorMessageParams.rule = rule;
+                                    resultErrorMessageParams.options = options;
+                                    resultErrorMessageParams.indexOfList = indexOfList;
+                                    if (resultErrorMessageParams.isCommonError) {
+                                        validationErrorResult = getCommonErrorMessageByKey(resultErrorMessageParams);
+                                    } else {
+                                        validationErrorResult = getErrorMessage(resultErrorMessageParams);
+                                    }
+                                } else {
+                                    throw `useValidatableForm error. Validation result should be either string or json on rule "${rule}" of path: ${path}. Current result: ${resultErrorMessageParams}`;
+                                }
+                                validationErrorOriginalResult[fullPath] = validationErrorResult;
                                 break;
                             }
                         }
@@ -271,16 +288,12 @@ const handleIsValidationEnabled = (ruleParams) => {
 };
 
 const handleRequired = (ruleParams) => {
-    const { context, options, currentRule, value, indexOfList } = ruleParams;
+    const { value } = ruleParams;
     if (isEmptyStringOrArray(value)) {
         const errorMessageParams = {
-            context,
             value,
-            options,
-            rule: currentRule,
-            indexOfList,
         };
-        return getErrorMessage(errorMessageParams);
+        return errorMessageParams;
     }
     return null;
 };
@@ -312,18 +325,18 @@ const handleGeneralComparison = (ruleParams) => {
     if (currentRule === 'number') {
         if (!isValidNumber(valueToBeCompared)) {
             const errorMessageParams = {
-                context,
                 messageKey: 'valueIsNotAValidNumber',
+                isCommonError: true,
             };
-            return getGeneralErrorMessageByKey(errorMessageParams);
+            return errorMessageParams;
         }
         if (options.onlyIntegers) {
             if (!Number.isInteger(valueToBeCompared)) {
                 const errorMessageParams = {
-                    context,
                     messageKey: 'valueIsNotAnInteger',
+                    isCommonError: true,
                 };
-                return getGeneralErrorMessageByKey(errorMessageParams);
+                return errorMessageParams;
             }
         }
     }
@@ -331,10 +344,10 @@ const handleGeneralComparison = (ruleParams) => {
     if (currentRule === 'date') {
         if (!isValidDate(valueToBeCompared)) {
             const errorMessageParams = {
-                context,
                 messageKey: 'valueIsNotAValidDate',
+                isCommonError: true,
             };
-            return getGeneralErrorMessageByKey(errorMessageParams);
+            return errorMessageParams;
         }
     }
 
@@ -358,10 +371,10 @@ const handleGeneralComparison = (ruleParams) => {
 
     if (isEmptyString(comparisonValue)) {
         const errorMessageParams = {
-            context,
             messageKey: 'comparisonValueNotFound',
+            isCommonError: true,
         };
-        return getGeneralErrorMessageByKey(errorMessageParams);
+        return errorMessageParams;
     }
 
     let currentValue = null;
@@ -369,10 +382,10 @@ const handleGeneralComparison = (ruleParams) => {
     if (currentRule === 'date') {
         if (!isValidDate(comparisonValue)) {
             const errorMessageParams = {
-                context,
                 messageKey: 'comparisonValueIsNotAValidDate',
+                isCommonError: true,
             };
-            return getGeneralErrorMessageByKey(errorMessageParams);
+            return errorMessageParams;
         }
         if (options.withTime) {
             currentValue = Date.UTC(
@@ -406,10 +419,10 @@ const handleGeneralComparison = (ruleParams) => {
         targetValue = Number(comparisonValue);
         if (!isValidNumber(targetValue)) {
             const errorMessageParams = {
-                context,
                 messageKey: 'comparisonValueIsNotAValidNumber',
+                isCommonError: true,
             };
-            return getGeneralErrorMessageByKey(errorMessageParams);
+            return errorMessageParams;
         }
     }
 
@@ -445,22 +458,17 @@ const handleGeneralComparison = (ruleParams) => {
 
     if (!comparisonValidationResult) {
         const errorMessageParams = {
-            context,
             value: errorMessageValue,
             comparisonValue: errorMessageComparisonValue,
             comparisonKey,
-            options,
-            rule: currentRule,
-            originalValue: value,
-            indexOfList,
         };
-        return getErrorMessage(errorMessageParams);
+        return errorMessageParams;
     }
     return null;
 };
 
 const handleStringControl = (ruleParams) => {
-    const { context, options, currentRule, value, validatorFunction, indexOfList } = ruleParams;
+    const { options, value, validatorFunction } = ruleParams;
 
     if (isEmptyStringOrArray(value) && !options.applyToNulls) {
         return null;
@@ -468,19 +476,15 @@ const handleStringControl = (ruleParams) => {
 
     if (!validatorFunction(value)) {
         const errorMessageParams = {
-            context,
             value,
-            options,
-            rule: currentRule,
-            indexOfList,
         };
-        return getErrorMessage(errorMessageParams);
+        return errorMessageParams;
     }
     return null;
 };
 
 const handleEqualityControl = (ruleParams) => {
-    const { context, formData, options, currentRule, value, path, indexOfList } = ruleParams;
+    const { formData, options, currentRule, value, path, indexOfList } = ruleParams;
 
     if (isEmptyStringOrArray(value) && !options.applyToNulls) {
         return null;
@@ -501,20 +505,16 @@ const handleEqualityControl = (ruleParams) => {
 
     if (comparisonValue !== value) {
         const errorMessageParams = {
-            context,
             value,
-            options,
-            rule: currentRule,
-            indexOfList,
             comparisonValue,
         };
-        return getErrorMessage(errorMessageParams);
+        return errorMessageParams;
     }
     return null;
 };
 
 const handleIncludesControl = (ruleParams) => {
-    const { context, formData, options, currentRule, value, path, indexOfList } = ruleParams;
+    const { formData, options, currentRule, value, path, indexOfList } = ruleParams;
 
     if (isEmptyStringOrArray(value) && !options.applyToNulls) {
         return null;
@@ -535,10 +535,10 @@ const handleIncludesControl = (ruleParams) => {
 
     if (!comparisonValue) {
         const errorMessageParams = {
-            context,
             messageKey: 'comparisonValueNotFound',
+            isCommonError: true,
         };
-        return getGeneralErrorMessageByKey(errorMessageParams);
+        return errorMessageParams;
     }
 
     let valueToCompare = value;
@@ -557,20 +557,16 @@ const handleIncludesControl = (ruleParams) => {
 
     if (!valueToCompare.includes(comparisonValue)) {
         const errorMessageParams = {
-            context,
             value: valueToCompare,
-            options,
-            rule: currentRule,
-            indexOfList,
             comparisonValue,
         };
-        return getErrorMessage(errorMessageParams);
+        return errorMessageParams;
     }
     return null;
 };
 
 const handleRegexControl = (ruleParams) => {
-    const { context, options, currentRule, value, path, indexOfList } = ruleParams;
+    const { options, currentRule, value, path } = ruleParams;
 
     if (isEmptyStringOrArray(value) && !options.applyToNulls) {
         return null;
@@ -591,19 +587,15 @@ const handleRegexControl = (ruleParams) => {
 
     if (!regexObject.test(value)) {
         const errorMessageParams = {
-            context,
             value,
-            options,
-            rule: currentRule,
-            indexOfList,
         };
-        return getErrorMessage(errorMessageParams);
+        return errorMessageParams;
     }
     return null;
 };
 
 const handleUniqueControl = (ruleParams) => {
-    const { context, formData, options, currentRule, value, indexOfList, originalListPath, subRulePath } = ruleParams;
+    const { formData, options, value, indexOfList, originalListPath, subRulePath } = ruleParams;
 
     if (isEmptyStringOrArray(value) && !options.applyToNulls) {
         return null;
@@ -623,22 +615,21 @@ const handleUniqueControl = (ruleParams) => {
         }).length > 0;
     if (valueExistsInList) {
         const errorMessageParams = {
-            context,
             value,
-            options,
-            rule: currentRule,
-            indexOfList,
         };
-        return getErrorMessage(errorMessageParams);
+        return errorMessageParams;
     }
     return null;
 };
 
-const getGeneralErrorMessageByKey = (errorMessageParams) => {
+const getCommonErrorMessageByKey = (errorMessageParams) => {
     const { context, messageKey } = errorMessageParams;
     const { lang, translations } = context;
     const defaultMessage = translations[lang][messageKey];
     let messageToBeReturned = defaultMessage;
+    if (!defaultMessage) {
+        messageToBeReturned = translations[DEFAULT_LANG][messageKey]; // fallback default to en
+    }
     return messageToBeReturned;
 };
 
@@ -650,7 +641,7 @@ const getErrorMessage = (errorMessageParams) => {
         messageKey = `${rule}.${comparisonKey}`;
     }
     const defaultMessage = translations[lang][messageKey];
-    const { customMessage } = options;
+    const customMessage = options && options.customMessage;
     let messageToBeReturned = defaultMessage;
     if (!defaultMessage) {
         messageToBeReturned = translations[DEFAULT_LANG][messageKey]; // fallback default to en

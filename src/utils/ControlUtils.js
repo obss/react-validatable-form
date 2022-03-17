@@ -2,8 +2,14 @@ const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))
 // eslint-disable-next-line
 const URL_REGEX = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
 
+const objectConstructor = {}.constructor;
+
 export const isString = (param) => {
     return typeof param === 'string';
+};
+
+export const isObject = (param) => {
+    return param.constructor === objectConstructor;
 };
 
 export const isValidNumber = (param) => {
