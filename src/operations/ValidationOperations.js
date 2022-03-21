@@ -7,6 +7,7 @@ import {
     defaultTrFormatDateWithTime,
     isEmptyString,
     isFunction,
+    isJsx,
     isNullOrUndefined,
     isObject,
     isString,
@@ -236,7 +237,7 @@ export const handleValidationsOfForm = (validationParams) => {
                             const resultErrorMessageParams = ruleFunction(ruleParams);
                             if (resultErrorMessageParams) {
                                 let validationErrorResult = null;
-                                if (isString(resultErrorMessageParams)) {
+                                if (isString(resultErrorMessageParams) || isJsx(resultErrorMessageParams)) {
                                     validationErrorResult = resultErrorMessageParams;
                                 } else if (isObject(resultErrorMessageParams)) {
                                     resultErrorMessageParams.context = context;
@@ -647,12 +648,12 @@ const getErrorMessage = (errorMessageParams) => {
         messageToBeReturned = translations[DEFAULT_LANG][messageKey]; // fallback default to en
     }
     if (customMessage) {
-        if (isString(customMessage)) {
+        if (isString(customMessage) || isJsx(customMessage)) {
             messageToBeReturned = customMessage;
         } else if (isFunction(customMessage)) {
             messageToBeReturned = customMessage(errorMessageParams);
-            if (!messageToBeReturned || !isString(messageToBeReturned)) {
-                throw `useValidatableForm error. "customMessage" function should return a valid string. currentValue: ${messageToBeReturned}`;
+            if (!messageToBeReturned || (!isString(messageToBeReturned) && !isJsx(messageToBeReturned))) {
+                throw `useValidatableForm error. "customMessage" function should return a valid string or jsx. currentValue: ${messageToBeReturned}`;
             }
         } else {
             throw `useValidatableForm error. "customMessage" should be either of type string or function`;
@@ -661,8 +662,10 @@ const getErrorMessage = (errorMessageParams) => {
     if (!messageToBeReturned) {
         throw `useValidatableForm error. Validation result could not be found while validating rule "${rule}" on value ${value}`;
     }
-    messageToBeReturned = messageToBeReturned.split('${value}').join(value);
-    messageToBeReturned = messageToBeReturned.split('${comparisonValue}').join(comparisonValue);
+    if (isString(messageToBeReturned)) {
+        messageToBeReturned = messageToBeReturned.split('${value}').join(value);
+        messageToBeReturned = messageToBeReturned.split('${comparisonValue}').join(comparisonValue);
+    }
     return messageToBeReturned;
 };
 
