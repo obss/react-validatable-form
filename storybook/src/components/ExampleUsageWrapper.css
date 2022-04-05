@@ -1,0 +1,31 @@
+.examplesUsageWrapperDiv {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.pageTitle {
+    font-size: x-large;
+}
+
+.mainWrapperDiv {
+    margin-top: 20px;
+    width: 1000px;
+    max-width: 90vw;
+    padding-bottom: 20px;
+}
+
+.pageCodeUrlSpan {
+    margin-left: 50px;
+    color: #5b7adb;
+}
+
+@media(max-width: 1024px) {
+    .pageCodeUrlSpan {
+        margin-left: 10px;
+    }
+}
+
+.pageCodeUrlSpan:hover {
+    text-decoration: underline;
+    color: #395ac2;
+}

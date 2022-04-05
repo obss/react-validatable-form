@@ -1,0 +1,359 @@
+.App {
+    text-align: center;
+}
+
+select,
+input {
+    border: 1px solid;
+}
+
+.pureButton {
+    border: 1px solid;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.pureButton:hover {
+    background-color: lightgray;
+}
+
+.libraryName {
+    cursor: pointer;
+}
+
+.libraryName:hover {
+    background-color: rgb(243, 243, 243);
+}
+
+.errorInfoText {
+    color: red;
+    min-height: 25px;
+    margin-bottom: 25px;
+}
+
+.hasError input,
+.hasError select {
+    border: 1px solid red;
+}
+
+.hasError .errorText {
+    font-size: small;
+    color: red;
+}
+
+.errorText {
+    min-height: 20px;
+}
+
+.MuiFormControl-root,
+.MuiAutocomplete-root {
+    width: 400px;
+    max-width: 90vw;
+}
+.formListField .MuiFormControl-root,
+.formListField .MuiAutocomplete-root {
+    width: 400px;
+    max-width: 65vw;
+}
+
+.formField {
+    display: flex;
+    justify-content: space-evenly;
+    width: 800px;
+    max-width: 90vw;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.complexFormListField .MuiFormControl-root,
+.complexFormListField .MuiAutocomplete-root {
+    width: 300px;
+    max-width: 60vw;
+}
+
+.formListItem > div {
+    margin-right: 10px;
+}
+
+@media (max-width: 1024px) {
+    .formListItem {
+        border: 1px solid black;
+        margin-bottom: 10px;
+    }
+}
+
+.formField > div {
+    width: 200px;
+    flex: 45%;
+}
+
+@media (max-width: 1024px) {
+    .formField {
+        flex-direction: column;
+    }
+    .formField > div {
+        width: 90vw;
+    }
+}
+
+.mySubmitButton {
+    margin-top: 20px !important;
+    margin-left: 60px !important;
+}
+
+@media (max-width: 1024px) {
+    .mySubmitButton {
+        margin-left: 20px !important;
+    }
+}
+
+.myAddButton {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.myDeleteButton {
+    margin-left: 20px !important;
+}
+
+.ruleOptionComponent {
+    width: 280px !important;
+}
+
+.comparisonComponent {
+    width: 200px !important;
+}
+
+.comparisonDateComponent {
+    width: 250px !important;
+}
+
+.comparisonDiv {
+    display: flex;
+    gap: 10px;
+}
+
+@media (max-width: 1024px) {
+    .comparisonDiv {
+        flex-direction: column;
+    }
+}
+
+.textAndCheckboxDiv {
+    display: flex;
+}
+
+@media (max-width: 1024px) {
+    .textAndCheckboxDiv {
+        flex-direction: column;
+    }
+}
+
+.checkboxOnRight {
+    margin-left: 20px;
+}
+
+.regexInfo {
+    margin-left: 20px;
+}
+
+.my-prime-div {
+    display: grid;
+}
+
+.p-error {
+    min-height: 20px;
+}
+
+.my-prime-div .p-component {
+    width: 400px;
+    max-width: 90vw;
+}
+
+.my-bootstrap-empty-feedback {
+    margin-top: 0.25rem;
+    height: 21px;
+}
+
+.my-antd-empty-feedback {
+    margin-top: 0.25rem;
+    height: 20px;
+}
+
+.my-bootstrap-form input,
+.my-bootstrap-form select {
+    width: 400px;
+    max-width: 90vw;
+}
+
+.apiInfoSectionHeader {
+    margin-top: 20px;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.inner-link {
+    color: #5b7adb;
+    cursor: pointer;
+}
+
+.inner-link:hover {
+    text-decoration: underline;
+}
+
+.modalHeaderWrapper {
+    text-align: center;
+}
+
+.modalHeaderWrapper .pageTitle {
+    display: block;
+    word-break: break-all;
+}
+
+.modalHeaderWrapper .mainWrapperDiv {
+    display: none;
+}
+
+.menu-search-input {
+    width: 90%;
+}
+
+.mysidemenu {
+    padding-top: 10px;
+    width: 20vw;
+    min-width: 200px;
+}
+
+.sideMenuHidden {
+    display: none;
+}
+
+.menuButton {
+    top: 14px;
+    left: 10px;
+    position: absolute !important;
+    z-index: 1;
+    border: none !important;
+    outline: none !important;
+}
+
+.menuLogo {
+    margin-left: 30px;
+}
+
+.menuButton > svg {
+    fill: #1976d2;
+}
+
+.infoParagraph {
+    margin-top: 20px;
+}
+
+.pageCodeWrapper {
+    max-width: 90vw;
+    overflow-x: auto;
+}
+
+.pageCode {
+    white-space: pre;
+}
+
+.pathApiTable {
+    margin-top: 20px;
+    border: 1px solid black;
+}
+
+.pathApiTable td {
+    border: 2px solid black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+}
+
+.pathApiTableInfoCol {
+    width: 400px;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.pathApiTableExampleCol {
+    width: 400px;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+@media (max-width: 1024px) {
+    .myShinkableButtonSpan {
+        display: none;
+    }
+}
+
+@media (min-width: 1024px) {
+    .myShinkableButtonIcon {
+        display: none;
+    }
+}
+
+.side-navigation-panel
+    .side-navigation-panel-select
+    .side-navigation-panel-select-wrap
+    .side-navigation-panel-select-option-selected {
+    background-color: white !important;
+}
+
+.side-navigation-panel
+    .side-navigation-panel-select
+    .side-navigation-panel-select-wrap
+    .side-navigation-panel-select-option-selected:hover {
+    background-color: rgb(243, 243, 243) !important;
+}
+
+.infoParagraph {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    max-width: 90vw;
+    font-size: large;
+}
+
+.obssTriangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    right: 0;
+    border-width: 0 75px 75px 0;
+    border-color: transparent #1975d2 transparent transparent;
+}
+
+.obssTriangle:hover{
+    border-color: transparent #1565c0 transparent transparent;
+}
+
+.triangleIcon {
+    position: fixed;
+    top: 0;
+    right: 5px;
+    color: white;
+    width: 48px;
+    transform: rotate(45deg);
+    writing-mode: vertical-lr;
+}
+
+.codesandboxIFrame {
+    padding-top: 20px;
+    width: 100%;
+    height: 500px;
+    border: 0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.selectedSideItem{
+    background-color: lightgrey;
+}
+
+.generalDiv{
+    width: 100%;
+}

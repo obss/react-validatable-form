@@ -1,0 +1,9 @@
+
+.formDataString {
+    margin-left: 10px;
+    white-space: pre;
+    overflow-x: auto;
+    overflow-y: auto;
+    width: 600px;
+    height: 600px;
+}

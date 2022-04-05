@@ -1,0 +1,9 @@
+.codeBox {
+    white-space: pre;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    padding-left: 10px;
+    overflow-x: auto;
+}

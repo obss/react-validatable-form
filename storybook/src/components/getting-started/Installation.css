@@ -1,0 +1,28 @@
+.commandBox {
+    white-space: pre;
+    text-transform: none;
+}
+
+.commandText {
+    font-weight: bold;
+}
+
+.outsideUrlSpan {
+    margin-bottom: 10px;
+    color: #5b7adb;
+}
+
+.outsideUrlSpan:hover {
+    text-decoration: underline;
+    color: #395ac2;
+}
+
+.installButtonsDiv {
+    margin-top: 10px;
+    display: inline-grid;
+    grid-gap: 20px;
+}
+
+.installButtonIcon {
+    margin-left: 10px;
+}

@@ -1,0 +1,13 @@
+.copyButtons{
+    margin: 5px;
+}
+
+.homeContainer{
+}
+
+@media (max-width: 1024px) {
+    .homeContainer{
+        width: 100vw;
+        padding-inline: 20px;
+    }
+}

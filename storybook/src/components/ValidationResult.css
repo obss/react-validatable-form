@@ -1,0 +1,20 @@
+.validationResultDiv {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.validationResultInfoSuccess {
+    color: green;
+}
+
+.validationResultInfoFail {
+    color: red;
+}
+
+.validationResultIcon {
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+}

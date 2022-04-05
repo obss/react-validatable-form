@@ -1,0 +1,61 @@
+.settings-div {
+    display: flex;
+    margin-left: 50px;
+    margin-top: 12px;
+    padding-right: 50px;
+    margin-bottom: 20px;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.settingsTitle {
+    font-size: x-large;
+}
+
+.githubIcon {
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid rgb(243, 243, 243);
+}
+
+.githubIcon:hover {
+    border: 1px solid black;
+}
+
+.npmIcon {
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid rgb(243, 243, 243);
+}
+
+.npmIcon:hover {
+    border: 1px solid black;
+}
+
+.versionInfo {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.versionInfo:hover {
+    text-decoration: underline;
+}
+
+.topButton {
+    border: 1px solid black;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    background-color: #5b7adb;
+    text-transform: none !important;
+}
+
+.topButtonLabel {
+    margin-right: 10px;
+}
+
+@media (max-width: 1024px) {
+    .topButtonLabel {
+        display: none;
+    }
+}
