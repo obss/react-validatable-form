@@ -49,6 +49,10 @@ export const isValidUrl = (param) => {
     return !!result;
 };
 
+export const isArray = (param) => {
+    return Array.isArray(param);
+};
+
 export const isValidIban = (param) => {
     var CODE_LENGTHS = {
         AD: 24,

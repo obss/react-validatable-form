@@ -4,7 +4,7 @@ import set from 'lodash.set';
 import unset from 'lodash.unset';
 import ReactValidatableFormContext from './ReactValidatableFormContext';
 import { handleValidationsOfForm } from './operations/ValidationOperations';
-import { isNullOrUndefined, isString } from './utils/ControlUtils';
+import { isNullOrUndefined, isString, isArray } from './utils/ControlUtils';
 
 const findDuplicates = (arry) => arry.filter((item, index) => arry.indexOf(item) !== index);
 
@@ -48,7 +48,7 @@ const useValidatableForm = (props) => {
 
     useEffect(() => {
         if (currentRules) {
-            if (!Array.isArray(currentRules)) {
+            if (!isArray(currentRules)) {
                 throw `useValidatableForm error. "rules" should be an array`;
             }
             const pathsOfCurrentRules = currentRules.map((cr) => cr.path).filter((cr) => cr);

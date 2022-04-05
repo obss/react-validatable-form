@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 import { DEFAULT_LANG } from '../constants/Constants';
 import {
+    isArray,
     defaultEnFormatDate,
     defaultEnFormatDateWithTime,
     defaultTrFormatDate,
@@ -28,7 +29,7 @@ const COMPARISON_KEYS = [
 ];
 
 const isEmptyStringOrArray = (value) => {
-    if (Array.isArray(value)) {
+    if (isArray(value)) {
         return value.length < 1;
     }
     return isEmptyString(value);
@@ -40,7 +41,7 @@ export const handleValidationsOfForm = (validationParams) => {
     let validationErrorOriginalResult = {};
 
     if (rules) {
-        if (!Array.isArray(rules)) {
+        if (!isArray(rules)) {
             throw `useValidatableForm error. "rules" should be an array`;
         }
 
@@ -86,7 +87,7 @@ export const handleValidationsOfForm = (validationParams) => {
             if (listPath && path) {
                 throw `useValidatableForm error. Only one of "path" or "listPath" keys should exist in validation definitions`;
             }
-            if (dependantPaths && !Array.isArray(dependantPaths)) {
+            if (dependantPaths && !isArray(dependantPaths)) {
                 throw `useValidatableForm error. "dependantPaths" key should be an array`;
             }
             let ruleArrayOfKey = [];
@@ -111,7 +112,7 @@ export const handleValidationsOfForm = (validationParams) => {
             }
 
             if (ruleSetOfKey) {
-                if (Array.isArray(ruleSetOfKey)) {
+                if (isArray(ruleSetOfKey)) {
                     ruleArrayOfKey = [...ruleSetOfKey];
                 } else {
                     ruleArrayOfKey.push(ruleSetOfKey);
@@ -121,7 +122,7 @@ export const handleValidationsOfForm = (validationParams) => {
             let valuesToBeValidated = [];
             if (listPath) {
                 if (subRules) {
-                    if (!Array.isArray(subRules)) {
+                    if (!isArray(subRules)) {
                         throw `useValidatableForm error. "subRules" param should be an array`;
                     }
                     for (let s = 0; s < subRules.length; s++) {
@@ -129,7 +130,7 @@ export const handleValidationsOfForm = (validationParams) => {
                         const subRulePath = subRule.path;
                         const subRuleSet = subRule.ruleSet;
                         if (subRuleSet) {
-                            if (Array.isArray(subRuleSet)) {
+                            if (isArray(subRuleSet)) {
                                 ruleArrayOfKey = [...subRuleSet];
                             } else {
                                 ruleArrayOfKey.push(subRuleSet);
@@ -491,25 +492,47 @@ const handleEqualityControl = (ruleParams) => {
         return null;
     }
 
-    const { equalTo } = options;
+    const { equalTo, isOneOf } = options;
 
-    if (!equalTo) {
-        throw `useValidatableForm error. equalTo key is not found on rule "${currentRule}" of path: ${path}`;
+    if (!equalTo && !isOneOf) {
+        throw `useValidatableForm error. equalTo or isOneOf keys is not found on rule "${currentRule}" of path: ${path}`;
+    } else if (equalTo && isOneOf) {
+        throw `useValidatableForm error. equalTo and isOneOf keys cannot be combined on rule "${currentRule} of path: ${path}`;
     }
 
     let comparisonValue = null;
-    if (isFunction(equalTo)) {
-        comparisonValue = equalTo(formData, indexOfList);
-    } else {
-        comparisonValue = equalTo;
-    }
 
-    if (comparisonValue !== value) {
-        const errorMessageParams = {
-            value,
-            comparisonValue,
-        };
-        return errorMessageParams;
+    if (equalTo) {
+        if (isFunction(equalTo)) {
+            comparisonValue = equalTo(formData, indexOfList);
+        } else {
+            comparisonValue = equalTo;
+        }
+
+        if (comparisonValue !== value) {
+            const errorMessageParams = {
+                value,
+                comparisonValue,
+            };
+            return errorMessageParams;
+        }
+    } else if (isOneOf) {
+        if (isFunction(isOneOf)) {
+            comparisonValue = isOneOf(formData, indexOfList);
+        } else {
+            comparisonValue = isOneOf;
+        }
+        if (!isArray(comparisonValue)) {
+            throw `useValidatableForm error. isOneOf must be array on rule "${currentRule} of path: ${path}`;
+        }
+
+        if (!comparisonValue.includes(value)) {
+            const errorMessageParams = {
+                value,
+                comparisonValue,
+            };
+            return errorMessageParams;
+        }
     }
     return null;
 };
