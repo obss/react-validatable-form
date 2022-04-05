@@ -1,19 +1,16 @@
 {
-  "name": "react-validatable-form-demo",
-  "version": "3.1.0",
+  "name": "react-validatable-form-storybook",
+  "version": "3.2.0",
   "private": false,
-  "homepage": "http://obss.github.io/react-validatable-form-demo",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",
-    "babel-register": "6.26.0",
-    "gh-pages": "3.2.3"
+    "babel-register": "6.26.0"
   },
   "dependencies": {
     "@date-io/date-fns": "2.11.0",
-    "@elgorditosalsero/react-gtm-hook": "2.0.8",
     "@emotion/react": "11.5.0",
     "@emotion/styled": "11.3.0",
     "@mui/icons-material": "5.0.4",
@@ -38,7 +35,6 @@
     "react-helmet-async": "^1.2.3",
     "react-minimal-side-navigation": "1.9.2",
     "react-router-dom": "5.2.0",
-    "react-router-sitemap": "1.2.0",
     "react-scripts": "4.0.3",
     "react-validatable-form": "link:../",
     "web-vitals": "1.0.1"
@@ -47,10 +43,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "rimraf node_modules/.cache/gh-pages && gh-pages -b gh-pages -d build",
-    "sitemap": "babel-node ./sitemap-generator.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

@@ -306,7 +306,7 @@ const Main = () => {
                                 src={process.env.PUBLIC_URL + '/logo.png'}
                                 alt={'logo'}
                             />
-                            <span className="bannerText">react-validatable-form</span>
+                            <span className="bannerText">react-validatable-form Storybook</span>
                         </Link>
                         <Box flexGrow={1} />
                         <Settings openSettingsDialog={openSettingsDialog} />
