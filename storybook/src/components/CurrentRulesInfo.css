@@ -1,0 +1,22 @@
+.currentRuleInfoDiv {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    width: 1000px;
+    max-width: 90vw;
+}
+
+.currentRuleInfoDiv .MuiAccordion-root {
+    width: 1000px;
+    background-color: rgb(223, 223, 223);
+    overflow-x: auto;
+}
+
+.currentRuleLabel {
+    font-weight: bold;
+}
+
+.currentRuleString {
+    margin-left: 10px;
+    white-space: pre;
+}

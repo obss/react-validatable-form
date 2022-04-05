@@ -1,0 +1,35 @@
+.examples-wrapper-div {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.providerDialogContent {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.headerDiv {
+    height: 64px;
+    position: absolute;
+    background-color: rgb(243, 243, 243);
+    width: 100%;
+}
+
+.bannerLink {
+    display: flex;
+    align-items: center;
+}
+
+.bannerText {
+    margin-left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+@media (max-width: 900px) {
+    .bannerText {
+        display: none;
+    }
+}
