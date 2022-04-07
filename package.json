@@ -1,6 +1,6 @@
 {
   "name": "react-validatable-form",
-  "version": "3.2.1",
+  "version": "3.2.2-beta",
   "description": "React validatable form hook that is used to make dynamic client side validations on react forms",
   "keywords": [
     "react",
@@ -13,7 +13,8 @@
   "jsnext:main": "dist/index.es.js",
   "scripts": {
     "build": "rimraf dist && rollup -c --environment NODE_ENV:production",
-    "start": "rimraf dist && rollup -c -w --environment NODE_ENV:development"
+    "start": "rimraf dist && rollup -c -w --environment NODE_ENV:development",
+    "prepublishOnly": "npm run build"
   },
   "repository": "https://github.com/obss/react-validatable-form.git",
   "homepage": "https://obss.github.io/react-validatable-form-demo",
