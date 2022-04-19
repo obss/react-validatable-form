@@ -492,12 +492,12 @@ const handleEqualityControl = (ruleParams) => {
         return null;
     }
 
-    const { equalTo, isOneOf } = options;
+    const { equalTo, notEqualTo, isOneOf, isNoneOf } = options;
 
-    if (!equalTo && !isOneOf) {
-        throw `useValidatableForm error. equalTo or isOneOf keys is not found on rule "${currentRule}" of path: ${path}`;
-    } else if (equalTo && isOneOf) {
-        throw `useValidatableForm error. equalTo and isOneOf keys cannot be combined on rule "${currentRule} of path: ${path}`;
+    if (!equalTo && !isOneOf && !notEqualTo && !isNoneOf) {
+        throw `useValidatableForm error. equalTo, isOneOf, notEqualTo or isNoneOf keys is not found on rule "${currentRule}" of path: ${path}`;
+    } else if ((equalTo || notEqualTo) && (isOneOf || isNoneOf)) {
+        throw `useValidatableForm error. equalTo or notEqualTo and isOneOf or isNoneOf keys cannot be combined on rule "${currentRule} of path: ${path}`;
     }
 
     let comparisonValue = null;
@@ -527,6 +527,37 @@ const handleEqualityControl = (ruleParams) => {
         }
 
         if (!comparisonValue.includes(value)) {
+            const errorMessageParams = {
+                value,
+                comparisonValue,
+            };
+            return errorMessageParams;
+        }
+    } else if (notEqualTo) {
+        if (isFunction(notEqualTo)) {
+            comparisonValue = notEqualTo(formData, indexOfList);
+        } else {
+            comparisonValue = notEqualTo;
+        }
+
+        if (comparisonValue === value) {
+            const errorMessageParams = {
+                value,
+                comparisonValue,
+            };
+            return errorMessageParams;
+        }
+    } else if (isNoneOf) {
+        if (isFunction(isNoneOf)) {
+            comparisonValue = isNoneOf(formData, indexOfList);
+        } else {
+            comparisonValue = isNoneOf;
+        }
+        if (!isArray(comparisonValue)) {
+            throw `useValidatableForm error. isNoneOf must be array on rule "${currentRule} of path: ${path}`;
+        }
+
+        if (comparisonValue.includes(value)) {
             const errorMessageParams = {
                 value,
                 comparisonValue,

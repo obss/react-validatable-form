@@ -7,20 +7,35 @@ import { Autocomplete, Checkbox, FormControl, FormControlLabel, FormGroup, FormH
 import { options } from '../../constants/Data';
 
 const initialFormData = {
-    val: false,
+    val1: false,
     val2: 'aa',
-    comparisonValue: 'aba',
+    val3: 'bb',
+    comparisonValueEqualTo: 'aba',
+    comparisonValueNotEqualTo: 'aba',
     valIsOneOf1: 'Asia',
     valIsOneOf2: 'Asia',
+    valIsOneOf3: 'Asia',
     comparisonValueIsOneOf: ['North America', 'Africa', 'Europe'],
+    comparisonValueIsNoneOf: ['North America', 'Africa', 'Europe'],
 };
 
 const rules = [
     { path: 'val', ruleSet: [{ rule: 'required' }, { rule: 'equality', equalTo: true }] },
     {
         path: 'val2',
-        ruleSet: [{ rule: 'required' }, { rule: 'equality', equalTo: (formData) => formData['comparisonValue'] }],
-        dependantPaths: ['comparisonValue'],
+        ruleSet: [
+            { rule: 'required' },
+            { rule: 'equality', equalTo: (formData) => formData['comparisonValueEqualTo'] },
+        ],
+        dependantPaths: ['comparisonValueEqualTo'],
+    },
+    {
+        path: 'val3',
+        ruleSet: [
+            { rule: 'required' },
+            { rule: 'equality', notEqualTo: (formData) => formData['comparisonValueNotEqualTo'] },
+        ],
+        dependantPaths: ['comparisonValueNotEqualTo'],
     },
     {
         path: 'valIsOneOf1',
@@ -33,6 +48,14 @@ const rules = [
             { rule: 'equality', isOneOf: (formData) => formData['comparisonValueIsOneOf'] },
         ],
         dependantPaths: ['comparisonValueIsOneOf'],
+    },
+    {
+        path: 'valIsOneOf3',
+        ruleSet: [
+            { rule: 'required' },
+            { rule: 'equality', isNoneOf: (formData) => formData['comparisonValueIsNoneOf'] },
+        ],
+        dependantPaths: ['comparisonValueIsNoneOf'],
     },
 ];
 
@@ -66,17 +89,34 @@ const RuleEquality = () => {
                 <TextField
                     error={!!getError('val2')}
                     helperText={getError('val2') || ' '}
-                    label="val2"
+                    label="equalTo"
                     type="text"
                     value={getValue('val2') || ''}
                     onChange={(e) => setPathValue('val2', e.target.value)}
                 />
                 <TextField
                     className="comparisonComponent"
-                    label="comparisonValue"
+                    label="comparisonValueEqualTo"
                     type="text"
-                    value={getValue('comparisonValue')}
-                    onChange={(e) => setPathValue('comparisonValue', e.target.value)}
+                    value={getValue('comparisonValueEqualTo')}
+                    onChange={(e) => setPathValue('comparisonValueEqualTo', e.target.value)}
+                />
+            </div>
+            <div className="comparisonDiv">
+                <TextField
+                    error={!!getError('val3')}
+                    helperText={getError('val3') || ' '}
+                    label="notEqualTo"
+                    type="text"
+                    value={getValue('val3') || ''}
+                    onChange={(e) => setPathValue('val3', e.target.value)}
+                />
+                <TextField
+                    className="comparisonComponent"
+                    label="comparisonValueNotEqualTo"
+                    type="text"
+                    value={getValue('comparisonValueNotEqualTo')}
+                    onChange={(e) => setPathValue('comparisonValueNotEqualTo', e.target.value)}
                 />
             </div>
             <div className="comparisonDiv">
@@ -94,7 +134,7 @@ const RuleEquality = () => {
                 <TextField
                     error={!!getError('valIsOneOf2')}
                     helperText={getError('valIsOneOf2') || ' '}
-                    label="valIsOneOf2"
+                    label="isOneOf"
                     type="text"
                     value={getValue('valIsOneOf2') || ''}
                     onChange={(e) => setPathValue('valIsOneOf2', e.target.value)}
@@ -104,6 +144,25 @@ const RuleEquality = () => {
                     value={getValue('comparisonValueIsOneOf')}
                     onChange={(event, newValue) => {
                         setPathValue('comparisonValueIsOneOf', newValue);
+                    }}
+                    options={options}
+                    renderInput={(params) => <TextField {...params} label="ruleOption" />}
+                />
+            </div>
+            <div className="comparisonDiv">
+                <TextField
+                    error={!!getError('valIsOneOf3')}
+                    helperText={getError('valIsOneOf3') || ' '}
+                    label="isNoneOf"
+                    type="text"
+                    value={getValue('valIsOneOf3') || ''}
+                    onChange={(e) => setPathValue('valIsOneOf3', e.target.value)}
+                />
+                <Autocomplete
+                    multiple
+                    value={getValue('comparisonValueIsNoneOf')}
+                    onChange={(event, newValue) => {
+                        setPathValue('comparisonValueIsNoneOf', newValue);
                     }}
                     options={options}
                     renderInput={(params) => <TextField {...params} label="ruleOption" />}
