@@ -1,1 +1,8 @@
-export const DEFAULT_LANG = 'en';
+export const ruleOptions = [
+    'equalTo',
+    'lessThan',
+    'lessThanOrEqualTo',
+    'greaterThan',
+    'greaterThanOrEqualTo',
+    'notEqualTo',
+];

@@ -14,7 +14,7 @@ const PRODUCTION = (process.env.NODE_ENV === "production");
 
 export default [
     {
-        input: 'src/index.js',
+        input: 'src/lib/index.js',
         output: [
             {
                 file: pkg.module,
