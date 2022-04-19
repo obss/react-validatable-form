@@ -1,4 +1,4 @@
-import { useValidatableForm } from 'react-validatable-form';
+import { useValidatableForm } from '../../lib';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import TextField from '@mui/material/TextField';
 import ValidationResult from '../ValidationResult';
@@ -7,7 +7,7 @@ import { Autocomplete, Checkbox, FormControl, FormControlLabel, FormGroup, FormH
 import { options } from '../../constants/Data';
 
 const initialFormData = {
-    val1: false,
+    val: false,
     val2: 'aa',
     val3: 'bb',
     comparisonValueEqualTo: 'aba',
