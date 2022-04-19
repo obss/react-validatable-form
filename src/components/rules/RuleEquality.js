@@ -15,6 +15,7 @@ const initialFormData = {
     valIsOneOf1: 'Asia',
     valIsOneOf2: 'Asia',
     valIsOneOf3: 'Asia',
+    valIsOneOf4: 'Asia',
     comparisonValueIsOneOf: ['North America', 'Africa', 'Europe'],
     comparisonValueIsNoneOf: ['North America', 'Africa', 'Europe'],
 };
@@ -51,6 +52,11 @@ const rules = [
     },
     {
         path: 'valIsOneOf3',
+        ruleSet: [{ rule: 'required' }, { rule: 'equality', isNoneOf: ['North America', 'Africa', 'Europe'] }],
+        dependantPaths: ['comparisonValueIsNoneOf'],
+    },
+    {
+        path: 'valIsOneOf4',
         ruleSet: [
             { rule: 'required' },
             { rule: 'equality', isNoneOf: (formData) => formData['comparisonValueIsNoneOf'] },
@@ -123,12 +129,12 @@ const RuleEquality = () => {
                 <TextField
                     error={!!getError('valIsOneOf1')}
                     helperText={getError('valIsOneOf1') || ' '}
-                    label="valIsOneOf1"
+                    label="isOneOf"
                     type="text"
                     value={getValue('valIsOneOf1') || ''}
                     onChange={(e) => setPathValue('valIsOneOf1', e.target.value)}
                 />
-                {"['America', 'Africa', 'Europe']"}
+                {"['North America', 'Africa', 'Europe']"}
             </div>
             <div className="comparisonDiv">
                 <TextField
@@ -146,7 +152,7 @@ const RuleEquality = () => {
                         setPathValue('comparisonValueIsOneOf', newValue);
                     }}
                     options={options}
-                    renderInput={(params) => <TextField {...params} label="ruleOption" />}
+                    renderInput={(params) => <TextField {...params} label="comparisonValueIsOneOf" />}
                 />
             </div>
             <div className="comparisonDiv">
@@ -158,6 +164,17 @@ const RuleEquality = () => {
                     value={getValue('valIsOneOf3') || ''}
                     onChange={(e) => setPathValue('valIsOneOf3', e.target.value)}
                 />
+                {"['North America', 'Africa', 'Europe']"}
+            </div>
+            <div className="comparisonDiv">
+                <TextField
+                    error={!!getError('valIsOneOf4')}
+                    helperText={getError('valIsOneOf4') || ' '}
+                    label="isNoneOf"
+                    type="text"
+                    value={getValue('valIsOneOf4') || ''}
+                    onChange={(e) => setPathValue('valIsOneOf4', e.target.value)}
+                />
                 <Autocomplete
                     multiple
                     value={getValue('comparisonValueIsNoneOf')}
@@ -165,7 +182,7 @@ const RuleEquality = () => {
                         setPathValue('comparisonValueIsNoneOf', newValue);
                     }}
                     options={options}
-                    renderInput={(params) => <TextField {...params} label="ruleOption" />}
+                    renderInput={(params) => <TextField {...params} label="comparisonValueIsNoneOf" />}
                 />
             </div>
             <ValidationResult isValid={isValid} />
