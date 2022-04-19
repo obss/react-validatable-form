@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
-import ReactValidatableFormProvider from '../src/lib/ReactValidatableFormProvider';
-import useValidatableForm from '../src/lib/useValidatableForm';
+import { ReactValidatableFormProvider, useValidatableForm } from 'react-validatable-form';
+import * as React from 'react';
 
 export const testBuilder = (rules, initialFormData, hookProps, providerProps) => {
     const wrapper = ({ children }) => (
