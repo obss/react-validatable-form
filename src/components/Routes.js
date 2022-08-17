@@ -52,6 +52,7 @@ import ExampleAntUsage from './examples/ExampleAntUsage';
 import '../App.css';
 import ExampleReactNativeUsage from './examples/ExampleReactNativeUsage';
 import { Helmet } from 'react-helmet-async';
+import ExampleIsPathValid from './examples/ExampleIsPathValid';
 
 const Routes = (props) => {
     return (
@@ -322,6 +323,12 @@ const Routes = (props) => {
                             <title> Examples - Unset Path Is Blurred </title>
                         </Helmet>
                         <ExampleUnsetPathIsBlurred />
+                    </Route>
+                    <Route exact path="/examples/is-path-valid">
+                        <Helmet>
+                            <title> Examples - Is Path Valid </title>
+                        </Helmet>
+                        <ExampleIsPathValid />
                     </Route>
                     <Route exact path="/api/react-validatable-form-provider">
                         <Helmet>

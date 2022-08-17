@@ -35,7 +35,7 @@ const useValidatableForm = (props) => {
     const [currentFormData, setCurrentFormData] = useState(initialFormData);
     const [currentRules, setCurrentRules] = useState(rules);
     const [formIsSubmitted, setFormIsSubmitted] = useState(false);
-    const [blurPathList, setBlurPathList] = useState([]);
+    const [blurredPathList, setBlurredPathList] = useState([]);
     const [validationErrorOriginalResult, setValidationErrorOriginalResult] = useState({});
 
     if (!context) {
@@ -141,7 +141,7 @@ const useValidatableForm = (props) => {
 
     const resetForm = () => {
         setFormIsSubmitted(false);
-        setBlurPathList([]);
+        setBlurredPathList([]);
     };
 
     const runValidations = (runParams) => {
@@ -227,16 +227,16 @@ const useValidatableForm = (props) => {
                 if (!isString(path)) {
                     throw `useValidatableForm error. "path" parameter of setPathIsBlurred should be a string`;
                 }
-                setBlurPathList((latestBlurPathList) => {
-                    const newBlurPathList = [...latestBlurPathList];
-                    if (!newBlurPathList.includes(path)) {
-                        newBlurPathList.push(path);
+                setBlurredPathList((latestBlurredPathList) => {
+                    const newBlurredPathList = [...latestBlurredPathList];
+                    if (!newBlurredPathList.includes(path)) {
+                        newBlurredPathList.push(path);
                     }
-                    return newBlurPathList;
+                    return newBlurredPathList;
                 });
             }
         },
-        [context, currentRules, setBlurPathList, setValidationErrorOriginalResult]
+        [context, currentRules, setBlurredPathList, setValidationErrorOriginalResult]
     );
 
     const unsetPathIsBlurred = useCallback(
@@ -245,15 +245,15 @@ const useValidatableForm = (props) => {
                 if (!isString(path)) {
                     throw `useValidatableForm error. "path" parameter of unsetPathIsBlurred should be a string`;
                 }
-                setBlurPathList((latestBlurPathList) => {
-                    const newBlurPathList = latestBlurPathList.filter((p) => {
+                setBlurredPathList((latestBlurredPathList) => {
+                    const newBlurredPathList = latestBlurredPathList.filter((p) => {
                         return p !== path;
                     });
-                    return newBlurPathList;
+                    return newBlurredPathList;
                 });
             }
         },
-        [context, currentRules, setBlurPathList, setValidationErrorOriginalResult]
+        [context, currentRules, setBlurredPathList, setValidationErrorOriginalResult]
     );
 
     const isValid = Object.keys(validationErrorOriginalResult).length < 1;
@@ -264,7 +264,7 @@ const useValidatableForm = (props) => {
         let finalShowAfterBlur = getFinalPropValueFromHookOrContext('showAfterBlur', props, context);
         if (finalShowAfterBlur) {
             Object.keys(validationErrorOriginalResult).forEach((pathForFocus) => {
-                if (!blurPathList.includes(pathForFocus)) {
+                if (!blurredPathList.includes(pathForFocus)) {
                     delete validationError[pathForFocus];
                 }
             });
@@ -281,11 +281,20 @@ const useValidatableForm = (props) => {
         return get(validationError, path);
     };
 
+    const isPathValid = (path) => {
+        if (blurredPathList.includes(path) || formIsSubmitted) {
+            return !get(validationError, path);
+        }
+        return false;
+    };
+
     return {
         isValid: isValid,
         validationError: validationError,
         validationErrorOriginalResult: validationErrorOriginalResult,
         formData: currentFormData || {},
+        formIsSubmitted: formIsSubmitted,
+        blurredPathList: blurredPathList,
         forceRunAllValidations: runValidations,
         resetForm: resetForm,
         setPathValue: setPathValue,
@@ -298,6 +307,7 @@ const useValidatableForm = (props) => {
         unsetPathIsBlurred: unsetPathIsBlurred,
         getValue: getValue,
         getError: getError,
+        isPathValid: isPathValid,
     };
 };
 

@@ -121,6 +121,28 @@ const returnValuesApiInfoList = [
     {
         label: (
             <div>
+                formIsSubmitted (boolean){' '}
+                <Link className="inner-link" to="/advanced/hide-before-submit">
+                    See Example
+                </Link>
+            </div>
+        ),
+        desc: 'Returns current formIsSubmitted info.',
+    },
+    {
+        label: (
+            <div>
+                blurredPathList (array){' '}
+                <Link className="inner-link" to="/advanced/show-after-blur">
+                    See Example
+                </Link>
+            </div>
+        ),
+        desc: 'Returns current blurredPathList info.',
+    },
+    {
+        label: (
+            <div>
                 setPathValue(path, value){' '}
                 <Link className="inner-link" to="/api/path">
                     See Path API
@@ -232,6 +254,17 @@ const returnValuesApiInfoList = [
             </div>
         ),
         desc: 'Function to reset form submitted info and elements blurred info.',
+    },
+    {
+        label: (
+            <div>
+                isPathValid(path){' '}
+                <Link className="inner-link" to="/examples/is-path-valid">
+                    See Example
+                </Link>
+            </div>
+        ),
+        desc: 'Function to get if path can be interpreted as valid.',
     },
     {
         label: 'getValue(path)',
