@@ -6,8 +6,8 @@ import Checkbox from '@mui/material/Checkbox';
 import { ruleOptions } from '../../constants/Constants';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import TextField from '@mui/material/TextField';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
-import DateTimePicker from '@mui/lab/DateTimePicker';
+import { DesktopDatePicker } from '@mui/x-date-pickers';
+import { DateTimePicker } from '@mui/x-date-pickers';
 import Autocomplete from '@mui/material/Autocomplete';
 import ValidationResult from '../ValidationResult';
 import CurrentRulesInfo from '../CurrentRulesInfo';
@@ -71,7 +71,7 @@ const RuleDate = () => {
     };
 
     const PickerComponent = withTime ? DateTimePicker : DesktopDatePicker;
-    const pickerFormat = withTime ? null : 'MM/dd/yyyy';
+    const pickerFormat = withTime ? 'MM/dd/yyyy HH:mm' : 'MM/dd/yyyy';
 
     return (
         <ExampleUsageWrapper header="date" codeUrl="components/rules/RuleDate.js">

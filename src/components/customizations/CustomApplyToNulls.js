@@ -2,7 +2,7 @@ import { useValidatableForm } from '../../lib';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import TextField from '@mui/material/TextField';
 import { Autocomplete, Button } from '@mui/material';
-import { DesktopDatePicker } from '@mui/lab';
+import { DesktopDatePicker } from '@mui/x-date-pickers';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ValidationResult from '../ValidationResult';
