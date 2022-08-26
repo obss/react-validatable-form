@@ -1,9 +1,11 @@
 
 # React Validatable Form <!-- omit in toc -->
 
-
 > React validatable form hook that is used to create dynamic client side validations on React forms.
 
+<img alt="examplegif" src="https://obss.github.io/react-validatable-form-demo/example_video.gif" />
+
+---
 
 [![NPM (scoped)](https://img.shields.io/npm/v/react-validatable-form?label=npm%20%7C%20web)](https://www.npmjs.com/package/react-validatable-form)
 [![License](https://img.shields.io/github/license/obss/react-validatable-form.svg)](https://github.com/obss/react-validatable-form/blob/master/LICENSE) 
@@ -121,7 +123,7 @@ const MyComponent = () => {
 
 ## Examples
 
-[![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/embed/vigorous-paper-dht66q)
+[![Edit form-quickstart](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/embed/react-validatable-form-embed-5hx0xj)
 
 Checkout live examples on [react-validatable-form-demo](https://obss.github.io/react-validatable-form-demo) page for various customizations.
 
