@@ -3,7 +3,7 @@
 
 > React validatable form hook that is used to create dynamic client side validations on React forms.
 
-<img alt="examplegif" src="https://obss.github.io/react-validatable-form-demo/example_video.gif" />
+<img alt="examplegif" src="https://raw.githubusercontent.com/obss/react-validatable-form/master/public/example_video.gif" />
 
 ---
 
