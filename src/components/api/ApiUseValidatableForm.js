@@ -61,8 +61,7 @@ const hookParametersApiInfoList = [
                 </Link>
             </div>
         ),
-        desc:
-            'Flag to automatically focus to first HTML element with validation error after setFormIsSubmitted function is called.',
+        desc: 'Flag to automatically focus to first HTML element with validation error after setFormIsSubmitted function is called.',
     },
     {
         label: (
@@ -73,8 +72,7 @@ const hookParametersApiInfoList = [
                 </Link>
             </div>
         ),
-        desc:
-            'Function that accepts the first "elementId" of current validation errors as parameter that is used to customly manage DOM after submit.',
+        desc: 'Function that accepts the first "elementId" of current validation errors as parameter that is used to customly manage DOM after submit.',
     },
 ];
 
@@ -92,8 +90,7 @@ const returnValuesApiInfoList = [
                 </Link>
             </div>
         ),
-        desc:
-            'Returns the validation result info of each rule with each path according to current formData and rules. Some validation results can be hide before submit or before blur.',
+        desc: 'Returns the validation result info of each rule with each path according to current formData and rules. Some validation results can be hide before submit or before blur.',
     },
     {
         label: (
@@ -104,8 +101,7 @@ const returnValuesApiInfoList = [
                 </Link>
             </div>
         ),
-        desc:
-            'Returns the validation result info of each rule with each path according to current formData and rules. (is not hidden before submit or before blur).',
+        desc: 'Returns the validation result info of each rule with each path according to current formData and rules. (is not hidden before submit or before blur).',
     },
     {
         label: (
@@ -179,8 +175,7 @@ const returnValuesApiInfoList = [
                 </Link>
             </div>
         ),
-        desc:
-            'Function to set form is submitted info true and show all current validation results if hideBeforeSubmit parameter is set true.',
+        desc: 'Function to set form is submitted info true and show all current validation results if hideBeforeSubmit parameter is set true.',
     },
     {
         label: (
@@ -191,8 +186,7 @@ const returnValuesApiInfoList = [
                 </Link>
             </div>
         ),
-        desc:
-            'Function to set element of path is blurred info true and unhide its current validation result if showAfterBlur parameter is set true.',
+        desc: 'Function to set element of path is blurred info true and unhide its current validation result if showAfterBlur parameter is set true.',
     },
     {
         label: (
@@ -207,8 +201,7 @@ const returnValuesApiInfoList = [
                 </Link>
             </div>
         ),
-        desc:
-            'Function to unset element of path is blurred info and hide its current validation result if showAfterBlur parameter is set true.',
+        desc: 'Function to unset element of path is blurred info and hide its current validation result if showAfterBlur parameter is set true.',
     },
     {
         label: (
@@ -241,8 +234,7 @@ const returnValuesApiInfoList = [
                 </Link>
             </div>
         ),
-        desc:
-            'Function to update whole formData and rules simultaneously and run all validations according to these formData and rules.',
+        desc: 'Function to update whole formData and rules simultaneously and run all validations according to these formData and rules.',
     },
     {
         label: (

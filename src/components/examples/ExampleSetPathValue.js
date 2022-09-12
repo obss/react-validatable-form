@@ -18,17 +18,11 @@ const rules = [
 ];
 
 const ExampleSetPathValue = () => {
-    const {
-        isValid,
-        validationError,
-        formData,
-        setPathValue,
-        setFormIsSubmitted,
-        setPathIsBlurred,
-    } = useValidatableForm({
-        rules,
-        focusToErrorAfterSubmit: true,
-    });
+    const { isValid, validationError, formData, setPathValue, setFormIsSubmitted, setPathIsBlurred } =
+        useValidatableForm({
+            rules,
+            focusToErrorAfterSubmit: true,
+        });
     const [dialogOpen, setDialogOpen] = useState(false);
     const [formFilledState, setFormFilledState] = useState(0);
 

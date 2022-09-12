@@ -88,8 +88,7 @@ const rulesParametersApiInfoList = [
     },
     {
         label: 'listElementId (string)',
-        desc:
-            'Custom listElementId prefix to focus to elements with validation errors after submit (listPath is used if empty).',
+        desc: 'Custom listElementId prefix to focus to elements with validation errors after submit (listPath is used if empty).',
     },
     {
         label: 'dependantPaths (array)',

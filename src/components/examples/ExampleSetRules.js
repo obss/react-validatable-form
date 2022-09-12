@@ -31,20 +31,12 @@ const rules3 = [
 ];
 
 const ExampleSetRules = () => {
-    const {
-        isValid,
-        formData,
-        setPathValue,
-        setRules,
-        setFormIsSubmitted,
-        setPathIsBlurred,
-        getValue,
-        getError,
-    } = useValidatableForm({
-        initialFormData: { textVal1: 'aaa', textVal2: 'bbb', numVal: 5, selectVal: ['Europe'] },
-        rules,
-        focusToErrorAfterSubmit: true,
-    });
+    const { isValid, formData, setPathValue, setRules, setFormIsSubmitted, setPathIsBlurred, getValue, getError } =
+        useValidatableForm({
+            initialFormData: { textVal1: 'aaa', textVal2: 'bbb', numVal: 5, selectVal: ['Europe'] },
+            rules,
+            focusToErrorAfterSubmit: true,
+        });
     const [dialogOpen, setDialogOpen] = useState(false);
     const [currentRules, setCurrentRules] = useState(rules);
     const [formFilledState, setFormFilledState] = useState(0);

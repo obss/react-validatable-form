@@ -5,24 +5,17 @@
         "node": true,
         "jest": true
     },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:prettier/recommended"
-    ],
-    "parser": "babel-eslint",
+    "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:prettier/recommended"],
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
         },
         "ecmaVersion": 12,
+        "requireConfigFile": false,
         "sourceType": "module"
     },
-    "plugins": [
-        "react",
-        "prettier",
-        "react-hooks"
-    ],
+    "plugins": ["react", "prettier", "react-hooks"],
     "rules": {
         "react/jsx-fragments": ["error", "syntax"],
         "react/prop-types": "off",
@@ -34,10 +27,7 @@
         "react/jsx-filename-extension": [
             1,
             {
-                "extensions": [
-                    ".js",
-                    ".jsx"
-                ]
+                "extensions": [".js", ".jsx"]
             }
         ],
         "react/jsx-props-no-spreading": "off",

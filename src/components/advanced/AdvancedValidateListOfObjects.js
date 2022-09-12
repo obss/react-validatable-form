@@ -54,21 +54,14 @@ const rules = [
 ];
 
 const AdvancedValidateListOfObjects = () => {
-    const {
-        isValid,
-        formData,
-        setPathValue,
-        setFormIsSubmitted,
-        setPathIsBlurred,
-        getValue,
-        getError,
-    } = useValidatableForm({
-        rules,
-        initialFormData: { listChild: [{ id: 1 }] },
-        hideBeforeSubmit: true,
-        showAfterBlur: true,
-        focusToErrorAfterSubmit: true,
-    });
+    const { isValid, formData, setPathValue, setFormIsSubmitted, setPathIsBlurred, getValue, getError } =
+        useValidatableForm({
+            rules,
+            initialFormData: { listChild: [{ id: 1 }] },
+            hideBeforeSubmit: true,
+            showAfterBlur: true,
+            focusToErrorAfterSubmit: true,
+        });
     const [nextId, setNextId] = useState(2);
     const [dialogOpen, setDialogOpen] = useState(false);
 

@@ -1,7 +1,7 @@
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router-dom';
 
 const Homepage = () => {
-    return <Redirect to="/getting-started/home" />;
+    return <Navigate to="/getting-started/home" />;
 };
 
 export default Homepage;

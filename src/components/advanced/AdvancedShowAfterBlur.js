@@ -20,21 +20,13 @@ const rules = [
 ];
 
 const AdvancedShowAfterBlur = () => {
-    const {
-        isValid,
-        formData,
-        setPathValue,
-        setFormIsSubmitted,
-        setPathIsBlurred,
-        resetForm,
-        getValue,
-        getError,
-    } = useValidatableForm({
-        rules,
-        initialFormData,
-        hideBeforeSubmit: true,
-        showAfterBlur: true,
-    });
+    const { isValid, formData, setPathValue, setFormIsSubmitted, setPathIsBlurred, resetForm, getValue, getError } =
+        useValidatableForm({
+            rules,
+            initialFormData,
+            hideBeforeSubmit: true,
+            showAfterBlur: true,
+        });
     const [dialogOpen, setDialogOpen] = useState(false);
 
     const handleFormSubmit = () => {

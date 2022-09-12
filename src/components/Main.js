@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import './Main.css';
 import BodyWrapper from './BodyWrapper';
-import Routes from './Routes';
+import AppRoutes from './AppRoutes';
 import ExampleUsageWrapper from './ExampleUsageWrapper';
 import Settings from './Settings';
 import { BrowserRouter, Link } from 'react-router-dom';
@@ -338,7 +338,7 @@ const Main = () => {
                 <HelmetProvider>
                     <BodyWrapper>
                         <div className="flex">
-                            <Routes
+                            <AppRoutes
                                 openSettingsDialog={openSettingsDialog}
                                 menuIsHidden={menuIsHidden}
                                 onOutsideClick={handleOutsideClick}
