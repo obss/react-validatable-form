@@ -150,6 +150,7 @@ const AdvancedValidateComplexForms = () => {
             codeUrl={[
                 'components/advanced/AdvancedValidateComplexForms.js',
                 'components/advanced/AdvancedSubComponent.js',
+                'components/AdvancedSubAutonomousComponent.js',
             ]}
         >
             <p className="infoParagraph">
