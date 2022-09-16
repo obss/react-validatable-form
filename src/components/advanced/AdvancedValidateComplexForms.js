@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useValidatableForm } from '../../lib';
 import Checkbox from '@mui/material/Checkbox';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ValidationResult from '../ValidationResult';
 import CurrentRulesInfo from '../CurrentRulesInfo';
 import AdvancedSubComponent from './AdvancedSubComponent';
+import AdvancedSubAutonomousComponent from './AdvancedSubAutonomousComponent';
 import { Dialog, DialogTitle } from '@mui/material';
 import FormSubmitResult from '../FormSubmitResult';
 
@@ -69,10 +70,22 @@ const AdvancedValidateComplexForms = () => {
         });
     const [nextId, setNextId] = useState(1);
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [autonomousChildFormData, setAutonomousChildFormData] = useState({});
+    const [autonomousChildIsValid, setAutonomousChildIsValid] = useState(false);
+    const autonomousChildRef = useRef();
+
+    const handleAutonomousFormDataIsChanged = (formDataParam) => {
+        setAutonomousChildFormData(formDataParam);
+    };
+
+    const handleAutonomousIsValidChanged = (isValidParam) => {
+        setAutonomousChildIsValid(isValidParam);
+    };
 
     const handleFormSubmit = () => {
         const submitResultValid = setFormIsSubmitted();
-        if (submitResultValid) {
+        autonomousChildRef.current.handleSetFormIsSubmitted();
+        if (submitResultValid && autonomousChildIsValid) {
             setDialogOpen(true);
         }
     };
@@ -144,6 +157,11 @@ const AdvancedValidateComplexForms = () => {
                 listPaths and subcomponents.
             </p>
             <div>
+                <AdvancedSubAutonomousComponent
+                    ref={autonomousChildRef}
+                    handleAutonomousFormDataIsChanged={handleAutonomousFormDataIsChanged}
+                    handleAutonomousIsValidChanged={handleAutonomousIsValidChanged}
+                />
                 <div className={'formField'}>
                     <TextField
                         error={!!getError('child1')}
@@ -245,7 +263,7 @@ const AdvancedValidateComplexForms = () => {
             </div>
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
                 <DialogTitle>Form Data Submitted</DialogTitle>
-                <FormSubmitResult formData={formData} />
+                <FormSubmitResult formData={{ ...formData, ...autonomousChildFormData }} />
             </Dialog>
         </ExampleUsageWrapper>
     );
