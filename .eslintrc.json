@@ -13,7 +13,10 @@
         },
         "ecmaVersion": 12,
         "requireConfigFile": false,
-        "sourceType": "module"
+        "sourceType": "module",
+        "babelOptions": {
+            "plugins": ["@babel/plugin-syntax-import-assertions"]
+        }
     },
     "plugins": ["react", "prettier", "react-hooks"],
     "rules": {
