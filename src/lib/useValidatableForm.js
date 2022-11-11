@@ -49,17 +49,19 @@ const useValidatableForm = (props) => {
     useEffect(() => {
         if (currentRules) {
             if (!isArray(currentRules)) {
-                throw `useValidatableForm error. "rules" should be an array`;
+                throw new Error(`useValidatableForm error. "rules" should be an array`);
             }
             const pathsOfCurrentRules = currentRules.map((cr) => cr.path).filter((cr) => cr);
             const duplicatePaths = findDuplicates(pathsOfCurrentRules);
             if (duplicatePaths && duplicatePaths.length > 0) {
-                throw `useValidatableForm error. Duplicate path keys found on rules: ${duplicatePaths}`;
+                throw new Error(`useValidatableForm error. Duplicate path keys found on rules: ${duplicatePaths}`);
             }
             const listPathsOfCurrentRules = currentRules.map((cr) => cr.listPath).filter((cr) => cr);
             const duplicateListPaths = findDuplicates(listPathsOfCurrentRules);
             if (duplicateListPaths && duplicateListPaths.length > 0) {
-                throw `useValidatableForm error. Duplicate listPath keys found on rules: ${duplicateListPaths}`;
+                throw new Error(
+                    `useValidatableForm error. Duplicate listPath keys found on rules: ${duplicateListPaths}`
+                );
             }
         }
     }, [currentRules]);
@@ -74,8 +76,7 @@ const useValidatableForm = (props) => {
         if (!isValid && finalFocusToErrorAfterSubmit) {
             const focusToElementFunction =
                 elementFocusHandler || context.elementFocusHandler || immediatelyFocusToHtmlElementWithGivenId;
-            for (let i = 0; i < currentRules.length; i++) {
-                const ruleDef = currentRules[i];
+            for (const ruleDef of currentRules) {
                 if (!ruleDef.disableFocusAfterSubmit) {
                     const path = ruleDef.path;
                     const elementId = ruleDef.elementId;
@@ -89,8 +90,7 @@ const useValidatableForm = (props) => {
                             const listData = get(currentFormData, listPath);
                             if (listData && listData.length > 0) {
                                 for (let j = 0; j < listData.length; j++) {
-                                    for (let s = 0; s < subRules.length; s++) {
-                                        const subRule = subRules[s];
+                                    for (const subRule of subRules) {
                                         if (!subRule.disableFocusAfterSubmit) {
                                             const subRulePath = subRule.path;
                                             const subElementId = subRule.elementId || subRulePath;
@@ -123,8 +123,7 @@ const useValidatableForm = (props) => {
                     }
 
                     if (scrollableList && scrollableList.length > 0) {
-                        for (let k = 0; k < scrollableList.length; k++) {
-                            const scrollableObject = scrollableList[k];
+                        for (const scrollableObject of scrollableList) {
                             const fullPath = scrollableObject.fullPath;
                             const fullElementId = scrollableObject.fullElementId;
                             if (validationErrorOriginalResult[fullPath] && fullElementId) {
@@ -164,7 +163,7 @@ const useValidatableForm = (props) => {
     const setPathValue = useCallback(
         (path, value) => {
             if (!isString(path)) {
-                throw `useValidatableForm error. "path" parameter of setPathValue should be a string`;
+                throw new Error(`useValidatableForm error. "path" parameter of setPathValue should be a string`);
             }
             setCurrentFormData((latestFormData) => {
                 const newFormData = { ...latestFormData };
@@ -180,7 +179,7 @@ const useValidatableForm = (props) => {
     const unsetPathValue = useCallback(
         (path) => {
             if (!isString(path)) {
-                throw `useValidatableForm error. "path" parameter of unsetPathValue should be a string`;
+                throw new Error(`useValidatableForm error. "path" parameter of unsetPathValue should be a string`);
             }
             setCurrentFormData((latestFormData) => {
                 const newFormData = { ...latestFormData };
@@ -225,7 +224,9 @@ const useValidatableForm = (props) => {
         (path) => {
             if (path) {
                 if (!isString(path)) {
-                    throw `useValidatableForm error. "path" parameter of setPathIsBlurred should be a string`;
+                    throw new Error(
+                        `useValidatableForm error. "path" parameter of setPathIsBlurred should be a string`
+                    );
                 }
                 setBlurredPathList((latestBlurredPathList) => {
                     const newBlurredPathList = [...latestBlurredPathList];
@@ -243,7 +244,9 @@ const useValidatableForm = (props) => {
         (path) => {
             if (path) {
                 if (!isString(path)) {
-                    throw `useValidatableForm error. "path" parameter of unsetPathIsBlurred should be a string`;
+                    throw new Error(
+                        `useValidatableForm error. "path" parameter of unsetPathIsBlurred should be a string`
+                    );
                 }
                 setBlurredPathList((latestBlurredPathList) => {
                     const newBlurredPathList = latestBlurredPathList.filter((p) => {

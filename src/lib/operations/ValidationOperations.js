@@ -42,7 +42,7 @@ export const handleValidationsOfForm = (validationParams) => {
 
     if (rules) {
         if (!isArray(rules)) {
-            throw `useValidatableForm error. "rules" should be an array`;
+            throw new Error(`useValidatableForm error. "rules" should be an array`);
         }
 
         let rulesToBeRun = [];
@@ -54,14 +54,11 @@ export const handleValidationsOfForm = (validationParams) => {
             }
             validationErrorOriginalResult = { ...currentValidationError };
             rulesToBeRun = rules.filter((r) => {
-                if (
+                return !!(
                     resultStr === r.path ||
                     resultStr === r.listPath ||
                     (r.dependantPaths && r.dependantPaths.includes(resultStr))
-                ) {
-                    return true;
-                }
-                return false;
+                );
             });
 
             const keysToBeDeleted = Object.keys(validationErrorOriginalResult).filter((kp) => {
@@ -82,60 +79,54 @@ export const handleValidationsOfForm = (validationParams) => {
             const subRules = ruleDef.subRules;
 
             if (!path && !listPath) {
-                throw `useValidatableForm error. Either "path" or "listPath" keys should exist in validation definitions`;
+                throw new Error(
+                    `useValidatableForm error. Either "path" or "listPath" keys should exist in validation definitions`
+                );
             }
             if (listPath && path) {
-                throw `useValidatableForm error. Only one of "path" or "listPath" keys should exist in validation definitions`;
+                throw new Error(
+                    `useValidatableForm error. Only one of "path" or "listPath" keys should exist in validation definitions`
+                );
             }
             if (dependantPaths && !isArray(dependantPaths)) {
-                throw `useValidatableForm error. "dependantPaths" key should be an array`;
+                throw new Error(`useValidatableForm error. "dependantPaths" key should be an array`);
             }
-            let ruleArrayOfKey = [];
             const ruleSetOfKey = ruleDef.ruleSet;
             if (!listPath && !ruleSetOfKey) {
-                throw `useValidatableForm error. "ruleSet" key should exist in validation definitions if "path" is the key`;
+                throw new Error(
+                    `useValidatableForm error. "ruleSet" key should exist in validation definitions if "path" is the key`
+                );
             }
 
             if (listPath && !ruleSetOfKey && !subRules) {
-                throw `useValidatableForm error. One of "ruleSet" or "subRules" keys should exist in validation definitions if "listPath" is the key`;
+                throw new Error(
+                    `useValidatableForm error. One of "ruleSet" or "subRules" keys should exist in validation definitions if "listPath" is the key`
+                );
             }
+
             if (subRules && ruleSetOfKey) {
-                throw `useValidatableForm error. Only one of "ruleSet" or "subRules" keys should exist in validation definitions`;
+                throw new Error(
+                    `useValidatableForm error. Only one of "ruleSet" or "subRules" keys should exist in validation definitions`
+                );
             }
 
             if (path && !isString(path)) {
-                throw `useValidatableForm error. "path" key should be a string`;
+                throw new Error(`useValidatableForm error. "path" key should be a string`);
             }
 
             if (listPath && !isString(listPath)) {
-                throw `useValidatableForm error. "listPath" key should be a string`;
-            }
-
-            if (ruleSetOfKey) {
-                if (isArray(ruleSetOfKey)) {
-                    ruleArrayOfKey = [...ruleSetOfKey];
-                } else {
-                    ruleArrayOfKey.push(ruleSetOfKey);
-                }
+                throw new Error(`useValidatableForm error. "listPath" key should be a string`);
             }
 
             let valuesToBeValidated = [];
             if (listPath) {
                 if (subRules) {
                     if (!isArray(subRules)) {
-                        throw `useValidatableForm error. "subRules" param should be an array`;
+                        throw new Error(`useValidatableForm error. "subRules" param should be an array`);
                     }
-                    for (let s = 0; s < subRules.length; s++) {
-                        const subRule = subRules[s];
+                    for (const subRule of subRules) {
                         const subRulePath = subRule.path;
                         const subRuleSet = subRule.ruleSet;
-                        if (subRuleSet) {
-                            if (isArray(subRuleSet)) {
-                                ruleArrayOfKey = [...subRuleSet];
-                            } else {
-                                ruleArrayOfKey.push(subRuleSet);
-                            }
-                        }
 
                         const listObject = get(formData, listPath);
                         if (listObject && listObject.length > 0) {
@@ -175,10 +166,9 @@ export const handleValidationsOfForm = (validationParams) => {
             }
 
             if (valuesToBeValidated.length > 0) {
-                for (let k = 0; k < valuesToBeValidated.length; k++) {
-                    const subRuleSet = valuesToBeValidated[k].subRuleSet;
-                    for (let i = 0; i < subRuleSet.length; i++) {
-                        const ruleInfo = subRuleSet[i];
+                for (const valueToBeValidated of valuesToBeValidated) {
+                    const subRuleSet = valueToBeValidated.subRuleSet;
+                    for (const ruleInfo of subRuleSet) {
                         let rule = null;
                         let options = {};
                         if (isString(ruleInfo)) {
@@ -192,14 +182,18 @@ export const handleValidationsOfForm = (validationParams) => {
 
                         if (!rule) {
                             if (path) {
-                                throw `useValidatableForm error. "rule" key should exist in validation definitions object of path: ${path}`;
+                                throw new Error(
+                                    `useValidatableForm error. "rule" key should exist in validation definitions object of path: ${path}`
+                                );
                             } else {
-                                throw `useValidatableForm error. "rule" key should exist in validation definitions object of listPath: ${listPath}`;
+                                throw new Error(
+                                    `useValidatableForm error. "rule" key should exist in validation definitions object of listPath: ${listPath}`
+                                );
                             }
                         }
 
                         if (rule === 'unique' && !listPath) {
-                            throw `useValidatableForm error. Rule "unique" can only be used with "listPath"`;
+                            throw new Error(`useValidatableForm error. Rule "unique" can only be used with "listPath"`);
                         }
 
                         let ruleFunction = null;
@@ -210,14 +204,14 @@ export const handleValidationsOfForm = (validationParams) => {
                         }
 
                         if (!ruleFunction) {
-                            throw `useValidatableForm error. rule "${rule}" is not defined`;
+                            throw new Error(`useValidatableForm error. rule "${rule}" is not defined`);
                         }
                         const validatorFunction = VALIDATOR_FUNCTION_MAP[rule];
 
-                        const value = valuesToBeValidated[k].value;
-                        const fullPath = valuesToBeValidated[k].fullPath;
-                        const indexOfList = valuesToBeValidated[k].indexOfList;
-                        const subRulePath = valuesToBeValidated[k].subRulePath;
+                        const value = valueToBeValidated.value;
+                        const fullPath = valueToBeValidated.fullPath;
+                        const indexOfList = valueToBeValidated.indexOfList;
+                        const subRulePath = valueToBeValidated.subRulePath;
 
                         delete validationErrorOriginalResult[fullPath];
 
@@ -251,7 +245,9 @@ export const handleValidationsOfForm = (validationParams) => {
                                         validationErrorResult = getErrorMessage(resultErrorMessageParams);
                                     }
                                 } else {
-                                    throw `useValidatableForm error. Validation result should be either string or json on rule "${rule}" of path: ${path}. Current result: ${resultErrorMessageParams}`;
+                                    throw new Error(
+                                        `useValidatableForm error. Validation result should be either string or json on rule "${rule}" of path: ${path}. Current result: ${resultErrorMessageParams}`
+                                    );
                                 }
                                 validationErrorOriginalResult[fullPath] = validationErrorResult;
                                 break;
@@ -271,10 +267,10 @@ const handleIsValidationEnabled = (ruleParams) => {
     const { disableIf, enableIf } = options;
 
     if (disableIf && !isFunction(disableIf)) {
-        throw `useValidatableForm error. "disableIf" property should be a function`;
+        throw new Error(`useValidatableForm error. "disableIf" property should be a function`);
     }
     if (enableIf && !isFunction(enableIf)) {
-        throw `useValidatableForm error. "enableIf" property should be a function`;
+        throw new Error(`useValidatableForm error. "enableIf" property should be a function`);
     }
     let isDisabled = false;
     let isEnabled = true;
@@ -308,8 +304,7 @@ const handleGeneralComparison = (ruleParams) => {
     }
 
     let comparisonKey = null;
-    for (let i = 0; i < COMPARISON_KEYS.length; i++) {
-        const candidateKey = COMPARISON_KEYS[i];
+    for (const candidateKey of COMPARISON_KEYS) {
         const canditateValue = options[candidateKey];
         if (!isEmptyString(canditateValue)) {
             comparisonKey = candidateKey;
@@ -360,7 +355,9 @@ const handleGeneralComparison = (ruleParams) => {
         if (currentRule === 'number') {
             return null;
         }
-        throw `useValidatableForm error. comparison key is not found on rule "${currentRule}" of path: ${path}`;
+        throw new Error(
+            `useValidatableForm error. comparison key is not found on rule "${currentRule}" of path: ${path}`
+        );
     }
 
     let comparisonValue = null;
@@ -495,9 +492,13 @@ const handleEqualityControl = (ruleParams) => {
     const { equalTo, notEqualTo, isOneOf, isNoneOf } = options;
 
     if (!equalTo && !isOneOf && !notEqualTo && !isNoneOf) {
-        throw `useValidatableForm error. equalTo, isOneOf, notEqualTo or isNoneOf keys is not found on rule "${currentRule}" of path: ${path}`;
+        throw new Error(
+            `useValidatableForm error. equalTo, isOneOf, notEqualTo or isNoneOf keys is not found on rule "${currentRule}" of path: ${path}`
+        );
     } else if ((equalTo || notEqualTo) && (isOneOf || isNoneOf)) {
-        throw `useValidatableForm error. equalTo or notEqualTo and isOneOf or isNoneOf keys cannot be combined on rule "${currentRule} of path: ${path}`;
+        throw new Error(
+            `useValidatableForm error. equalTo or notEqualTo and isOneOf or isNoneOf keys cannot be combined on rule "${currentRule} of path: ${path}`
+        );
     }
 
     let comparisonValue = null;
@@ -523,7 +524,7 @@ const handleEqualityControl = (ruleParams) => {
             comparisonValue = isOneOf;
         }
         if (!isArray(comparisonValue)) {
-            throw `useValidatableForm error. isOneOf must be array on rule "${currentRule} of path: ${path}`;
+            throw new Error(`useValidatableForm error. isOneOf must be array on rule "${currentRule} of path: ${path}`);
         }
 
         if (!comparisonValue.includes(value)) {
@@ -554,7 +555,9 @@ const handleEqualityControl = (ruleParams) => {
             comparisonValue = isNoneOf;
         }
         if (!isArray(comparisonValue)) {
-            throw `useValidatableForm error. isNoneOf must be array on rule "${currentRule} of path: ${path}`;
+            throw new Error(
+                `useValidatableForm error. isNoneOf must be array on rule "${currentRule} of path: ${path}`
+            );
         }
 
         if (comparisonValue.includes(value)) {
@@ -578,7 +581,9 @@ const handleIncludesControl = (ruleParams) => {
     const { includes } = options;
 
     if (!includes) {
-        throw `useValidatableForm error. includes key is not found on rule "${currentRule}" of path: ${path}`;
+        throw new Error(
+            `useValidatableForm error. includes key is not found on rule "${currentRule}" of path: ${path}`
+        );
     }
 
     let comparisonValue = null;
@@ -607,7 +612,9 @@ const handleIncludesControl = (ruleParams) => {
     }
 
     if (!isString(comparisonValue)) {
-        throw `useValidatableForm error. comparisonValue is not string on rule "${currentRule}" of path: ${path}`;
+        throw new Error(
+            `useValidatableForm error. comparisonValue is not string on rule "${currentRule}" of path: ${path}`
+        );
     }
 
     if (!valueToCompare.includes(comparisonValue)) {
@@ -630,14 +637,14 @@ const handleRegexControl = (ruleParams) => {
     const { regex } = options;
 
     if (!regex) {
-        throw `useValidatableForm error. regex key is not found on rule "${currentRule}" of path: ${path}`;
+        throw new Error(`useValidatableForm error. regex key is not found on rule "${currentRule}" of path: ${path}`);
     }
 
     let regexObject = null;
     try {
         regexObject = new RegExp(regex);
     } catch (e) {
-        throw `useValidatableForm error. regex param is not valid on rule "${currentRule}" of path: ${path}`;
+        throw new Error(`useValidatableForm error. regex param is not valid on rule "${currentRule}" of path: ${path}`);
     }
 
     if (!regexObject.test(value)) {
@@ -707,14 +714,18 @@ const getErrorMessage = (errorMessageParams) => {
         } else if (isFunction(customMessage)) {
             messageToBeReturned = customMessage(errorMessageParams);
             if (!messageToBeReturned || (!isString(messageToBeReturned) && !isJsx(messageToBeReturned))) {
-                throw `useValidatableForm error. "customMessage" function should return a valid string or jsx. currentValue: ${messageToBeReturned}`;
+                throw new Error(
+                    `useValidatableForm error. "customMessage" function should return a valid string or jsx. currentValue: ${messageToBeReturned}`
+                );
             }
         } else {
-            throw `useValidatableForm error. "customMessage" should be either of type string or function`;
+            throw new Error(`useValidatableForm error. "customMessage" should be either of type string or function`);
         }
     }
     if (!messageToBeReturned) {
-        throw `useValidatableForm error. Validation result could not be found while validating rule "${rule}" on value ${value}`;
+        throw new Error(
+            `useValidatableForm error. Validation result could not be found while validating rule "${rule}" on value ${value}`
+        );
     }
     if (isString(messageToBeReturned)) {
         messageToBeReturned = messageToBeReturned.split('${value}').join(value);

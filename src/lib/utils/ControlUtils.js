@@ -55,7 +55,7 @@ export const isArray = (param) => {
 };
 
 export const isValidIban = (param) => {
-    var CODE_LENGTHS = {
+    let CODE_LENGTHS = {
         AD: 24,
         AE: 23,
         AT: 20,
@@ -134,7 +134,7 @@ export const isValidIban = (param) => {
         VG: 24,
         XK: 20,
     };
-    var iban = String(param)
+    let iban = String(param)
             .toUpperCase()
             .replace(/[^A-Z0-9]/g, ''), // keep only alphanumeric characters
         code = iban.match(/^([A-Z]{2})(\d{2})([A-Z\d]+)$/), // match and capture (1) the country code, (2) the check digits, and (3) the rest
@@ -152,9 +152,9 @@ export const isValidIban = (param) => {
 };
 
 const mod97 = (string) => {
-    var checksum = string.slice(0, 2),
+    let checksum = string.slice(0, 2),
         fragment;
-    for (var offset = 2; offset < string.length; offset += 7) {
+    for (let offset = 2; offset < string.length; offset += 7) {
         fragment = String(checksum) + string.substring(offset, offset + 7);
         checksum = parseInt(fragment, 10) % 97;
     }

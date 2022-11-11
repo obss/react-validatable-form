@@ -23,7 +23,9 @@ const ReactValidatableFormProvider = (props) => {
         const baseRuleKeys = Object.keys(VALIDATION_OPERATIONS_MAP);
         Object.keys(customRules).forEach((cr) => {
             if (baseRuleKeys.includes(cr)) {
-                throw `ReactValidatableFormProvider error. rule key: "${cr}" is already defined. Please rename custom rule key parameter of ReactValidatableFormProvider.`;
+                throw new Error(
+                    `ReactValidatableFormProvider error. rule key: "${cr}" is already defined. Please rename custom rule key parameter of ReactValidatableFormProvider.`
+                );
             }
         });
         allRules = { ...allRules, ...customRules };

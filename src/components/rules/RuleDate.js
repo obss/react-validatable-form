@@ -6,15 +6,14 @@ import Checkbox from '@mui/material/Checkbox';
 import { ruleOptions } from '../../constants/Constants';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import TextField from '@mui/material/TextField';
-import { DesktopDatePicker } from '@mui/x-date-pickers';
-import { DateTimePicker } from '@mui/x-date-pickers';
+import { DesktopDatePicker, DateTimePicker } from '@mui/x-date-pickers';
 import Autocomplete from '@mui/material/Autocomplete';
 import ValidationResult from '../ValidationResult';
 import CurrentRulesInfo from '../CurrentRulesInfo';
 
 const today = new Date();
 const defaultComparisonValue = today;
-var yesterday = new Date();
+const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 const dateRule = { rule: 'date' };
 dateRule[ruleOptions[0]] = defaultComparisonValue;

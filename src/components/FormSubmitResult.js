@@ -1,9 +1,9 @@
 import './FormSubmitResult.css';
 
 const stringifyWithFunction = (obj) => {
-    var placeholder = '____PLACEHOLDER____';
-    var fns = [];
-    var json = JSON.stringify(
+    const placeholder = '____PLACEHOLDER____';
+    const fns = [];
+    let json = JSON.stringify(
         obj,
         function (key, value) {
             if (typeof value === 'function') {
