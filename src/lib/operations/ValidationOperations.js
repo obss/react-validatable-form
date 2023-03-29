@@ -48,6 +48,7 @@ export const handleValidationsOfForm = (validationParams) => {
         let rulesToBeRun = [];
 
         if (pathToBeRun) {
+            const originalStr = pathToBeRun;
             let resultStr = pathToBeRun;
             if (resultStr.includes('[')) {
                 resultStr = resultStr.substring(0, resultStr.indexOf('['));
@@ -56,8 +57,11 @@ export const handleValidationsOfForm = (validationParams) => {
             rulesToBeRun = rules.filter((r) => {
                 return !!(
                     resultStr === r.path ||
+                    originalStr === r.path ||
                     resultStr === r.listPath ||
-                    (r.dependantPaths && r.dependantPaths.includes(resultStr))
+                    originalStr === r.listPath ||
+                    (r.dependantPaths && r.dependantPaths.includes(resultStr)) ||
+                    (r.dependantPaths && r.dependantPaths.includes(originalStr))
                 );
             });
 
