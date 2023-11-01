@@ -4,6 +4,7 @@ react-validatable-form.iml
 stats.html
 /node_modules
 /build
+/storybook-dist
 
 npm-debug.log*
 yarn-debug.log*

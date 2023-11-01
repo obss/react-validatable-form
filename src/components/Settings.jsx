@@ -5,7 +5,7 @@ import { SettingsOutlined } from '@mui/icons-material';
 
 const Settings = (props) => {
     const { openSettingsDialog } = props;
-    const versionInfo = `Version: ${process.env.REACT_APP_VERSION}`;
+    const versionInfo = `Version: ${import.meta.env.VITE_REACT_APP_VERSION}`;
 
     return (
         <div className={'settings-div'}>
@@ -18,14 +18,14 @@ const Settings = (props) => {
             <Tooltip placement="bottom" title="View on GitHub">
                 <span className={'githubIcon'}>
                     <a href={'https://github.com/obss/react-validatable-form'} target="_blank" rel="noreferrer">
-                        <img src={process.env.PUBLIC_URL + '/github.png'} alt="github_icon" />
+                        <img src={import.meta.env.BASE_URL + '/github.png'} alt="github_icon" />
                     </a>
                 </span>
             </Tooltip>
             <Tooltip placement="bottom" title="View on npmjs">
                 <span className={'npmIcon'}>
                     <a href={'https://www.npmjs.com/package/react-validatable-form'} target="_blank" rel="noreferrer">
-                        <img src={process.env.PUBLIC_URL + '/npm.png'} alt="npm_icon" />
+                        <img src={import.meta.env.BASE_URL + '/npm.png'} alt="npm_icon" />
                     </a>
                 </span>
             </Tooltip>

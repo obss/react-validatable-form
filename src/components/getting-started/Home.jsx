@@ -44,7 +44,7 @@ const Home = () => {
             rowGap={5}
             pt={2}
         >
-            <img width={'200px'} src={process.env.PUBLIC_URL + '/logo.png'} alt={'logo'} />
+            <img width={'200px'} src={import.meta.env.BASE_URL + '/logo.png'} alt={'logo'} />
             <Typography variant={'h3'}> react-validatable-form </Typography>
             <Typography variant={'h6'}>
                 {' '}
@@ -158,7 +158,7 @@ const Home = () => {
                 </Button>
             </Box>
             <video width={'500px'} autoPlay loop playsInline muted>
-                <source src={process.env.PUBLIC_URL + '/example_video.mp4'} type={'video/mp4'} />
+                <source src={import.meta.env.BASE_URL + '/example_video.mp4'} type={'video/mp4'} />
             </video>
         </Box>
     );

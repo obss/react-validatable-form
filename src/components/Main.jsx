@@ -287,10 +287,10 @@ const Main = () => {
     };
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/react-validatable-form">
             <div className={'obssTriangle'}>
                 <a className={'triangleIcon'} href={'https://obss.tech/'} target={'_blank'} rel="noreferrer">
-                    <img src={process.env.PUBLIC_URL + '/obss.png'} alt={'obss'} />
+                    <img src={import.meta.env.BASE_URL + '/obss.png'} alt={'obss'} />
                 </a>
             </div>
             <Box flexGrow={1}>
@@ -303,7 +303,7 @@ const Main = () => {
                             <img
                                 width={48}
                                 className={'menuLogo'}
-                                src={process.env.PUBLIC_URL + '/logo.png'}
+                                src={import.meta.env.BASE_URL + '/logo.png'}
                                 alt={'logo'}
                             />
                             <span className="bannerText">react-validatable-form Storybook</span>

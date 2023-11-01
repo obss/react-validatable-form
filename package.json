@@ -1,6 +1,6 @@
 {
     "name": "react-validatable-form",
-    "version": "5.0.0-beta.1",
+    "version": "5.0.0-beta.2",
     "description": "React validatable form hook that is used to make dynamic client side validations on react forms",
     "keywords": [
         "react",
@@ -15,11 +15,15 @@
         "build": "rimraf dist && rollup --config rollup.config.mjs --environment NODE_ENV:production",
         "start": "rimraf dist && rollup --config rollup.config.mjs -w --environment NODE_ENV:development",
         "prepublishOnly": "npm run build",
-        "start-storybook": "set PUBLIC_URL=. && react-scripts start",
-        "build-storybook": "react-scripts build",
+        "start-storybook": "vite --port 3136",
+        "build-storybook": "vite build",
+        "preview-storybook": "vite preview",
         "test": "jest tests"
     },
-    "repository": "https://github.com/obss/react-validatable-form.git",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/obss/react-validatable-form.git"
+    },
     "homepage": "https://obss.github.io/react-validatable-form-demo",
     "license": "MIT",
     "author": "ahmetemrekilinc",
@@ -51,6 +55,7 @@
         "@testing-library/react": "13.4.0",
         "@testing-library/react-hooks": "8.0.1",
         "@testing-library/user-event": "14.4.3",
+        "@vitejs/plugin-react": "^4.0.4",
         "antd": "4.23.5",
         "babel-jest": "29.2.0",
         "bootstrap": "5.2.2",
@@ -70,13 +75,13 @@
         "react-helmet-async": "1.3.0",
         "react-minimal-side-navigation": "1.9.2",
         "react-router-dom": "6.4.2",
-        "react-scripts": "5.0.1",
         "react-test-renderer": "18.2.0",
         "rollup": "3.2.2",
         "rollup-plugin-node-builtins": "2.1.2",
         "rollup-plugin-node-globals": "1.4.0",
         "rollup-plugin-peer-deps-external": "2.2.4",
         "rollup-plugin-visualizer": "5.8.3",
+        "vite": "^4.4.5",
         "web-vitals": "3.0.1"
     },
     "dependencies": {
@@ -99,5 +104,5 @@
             "last 1 safari version"
         ]
     },
-    "packageManager": "yarn@4.0.0"
+    "packageManager": "yarn@4.0.1"
 }
