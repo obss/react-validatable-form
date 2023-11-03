@@ -3,10 +3,9 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import './styles/sidenavigation.css';
 import './styles/antd.css';
+import "primereact/resources/themes/lara-light-blue/theme.css";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import 'primereact/resources/primereact.min.css';
-import 'primereact/resources/themes/saga-blue/theme.css';
 
 const container = document.getElementById('root');
 const root = createRoot(container);

@@ -129,12 +129,7 @@ const ExampleAntUsage = () => {
                 <ValidationResult isValid={isValid} />
                 <CurrentRulesInfo currentRules={rules} />
             </div>
-            <Modal
-                title={'Form Data Submitted'}
-                visible={dialogOpen}
-                footer={null}
-                onCancel={() => setDialogOpen(false)}
-            >
+            <Modal title={'Form Data Submitted'} open={dialogOpen} footer={null} onCancel={() => setDialogOpen(false)}>
                 <FormSubmitResult formData={formData} />
             </Modal>
         </ExampleUsageWrapper>

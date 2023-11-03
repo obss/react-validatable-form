@@ -191,7 +191,7 @@ const allMenuItems = [
                 itemId: '/examples/react-bootstrap',
             },
             {
-                title: 'React Native Usage',
+                title: 'React Native',
                 itemId: '/examples/react-native',
             },
             {

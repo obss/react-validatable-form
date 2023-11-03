@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { ruleOptions } from '../../constants/Constants';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import TextField from '@mui/material/TextField';
-import { DesktopDatePicker, DateTimePicker } from '@mui/x-date-pickers';
+import { DatePicker, DateTimePicker } from '@mui/x-date-pickers';
 import Autocomplete from '@mui/material/Autocomplete';
 import ValidationResult from '../ValidationResult';
 import CurrentRulesInfo from '../CurrentRulesInfo';
@@ -69,7 +69,7 @@ const RuleDate = () => {
         setWithTime(newValue);
     };
 
-    const PickerComponent = withTime ? DateTimePicker : DesktopDatePicker;
+    const PickerComponent = withTime ? DateTimePicker : DatePicker;
     const pickerFormat = withTime ? 'MM/dd/yyyy HH:mm' : 'MM/dd/yyyy';
 
     return (
@@ -85,9 +85,7 @@ const RuleDate = () => {
                     inputFormat={pickerFormat}
                     value={getValue('val')}
                     onChange={(val) => setPathValue('val', val)}
-                    renderInput={(params) => (
-                        <TextField {...params} error={!!getError('val')} helperText={getError('val') || ' '} />
-                    )}
+                    slotProps={{ textField: { error: !!getError('val'), helperText: getError('val') || ' ' } }}
                 />
 
                 <Autocomplete
@@ -106,7 +104,7 @@ const RuleDate = () => {
                         inputFormat={pickerFormat}
                         value={getValue('comparisonValue')}
                         onChange={(val) => setPathValue('comparisonValue', val)}
-                        renderInput={(params) => <TextField className="comparisonDateComponent" {...params} />}
+                        slotProps={{ textField: { className: 'comparisonDateComponent' } }}
                     />
                 ) : (
                     <PickerComponent
@@ -115,7 +113,7 @@ const RuleDate = () => {
                         inputFormat={pickerFormat}
                         value={today}
                         onChange={() => {}}
-                        renderInput={(params) => <TextField className="comparisonDateComponent" {...params} />}
+                        slotProps={{ textField: { className: 'comparisonDateComponent' } }}
                     />
                 )}
                 <FormGroup className={'checkboxOnRight'}>

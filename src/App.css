@@ -2,11 +2,6 @@
     text-align: center;
 }
 
-select,
-input {
-    border: 1px solid;
-}
-
 .pureButton {
     border: 1px solid;
     padding-left: 20px;
@@ -122,10 +117,6 @@ input {
 
 .comparisonComponent {
     width: 200px !important;
-}
-
-.comparisonDateComponent {
-    width: 250px !important;
 }
 
 .comparisonDiv {
@@ -328,7 +319,7 @@ input {
     border-color: transparent #1975d2 transparent transparent;
 }
 
-.obssTriangle:hover{
+.obssTriangle:hover {
     border-color: transparent #1565c0 transparent transparent;
 }
 
@@ -351,10 +342,10 @@ input {
     overflow: hidden;
 }
 
-.selectedSideItem{
+.selectedSideItem {
     background-color: lightgrey;
 }
 
-.generalDiv{
+.generalDiv {
     width: 100%;
 }

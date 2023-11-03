@@ -153,22 +153,6 @@
      ========================================================================== */
   
   /**
-   * 1. Change the font styles in all browsers.
-   * 2. Remove the margin in Firefox and Safari.
-   */
-  
-  button,
-  input,
-  optgroup,
-  select,
-  textarea {
-    font-family: inherit; /* 1 */
-    font-size: 100%; /* 1 */
-    line-height: 1.15; /* 1 */
-    margin: 0; /* 2 */
-  }
-  
-  /**
    * Show the overflow in IE.
    * 1. Show the overflow in Edge.
    */
@@ -374,11 +358,6 @@
     margin: 0;
   }
   
-  button {
-    background-color: transparent;
-    background-image: none;
-  }
-  
   /**
    * Work around a Firefox/IE bug where the transparent `button` background
    * results in a loss of the default `button` focus styles.
@@ -443,14 +422,6 @@
    *    https://github.com/tailwindcss/tailwindcss/pull/116
    */
   
-  *,
-  ::before,
-  ::after {
-    box-sizing: border-box; /* 1 */
-    border-width: 0; /* 2 */
-    border-style: solid; /* 2 */
-    border-color: #e2e8f0; /* 2 */
-  }
   
   /*
    * Ensure horizontal rules are visible by default
@@ -469,10 +440,6 @@
    *
    * https://github.com/tailwindcss/tailwindcss/issues/362
    */
-  
-  img {
-    border-style: solid;
-  }
   
   textarea {
     resize: vertical;
@@ -510,24 +477,6 @@
   a {
     color: inherit;
     text-decoration: inherit;
-  }
-  
-  /**
-   * Reset form element properties that are easy to forget to
-   * style explicitly so you don't inadvertently introduce
-   * styles that deviate from your design system. These styles
-   * supplement a partial reset that is already applied by
-   * normalize.css.
-   */
-  
-  button,
-  input,
-  optgroup,
-  select,
-  textarea {
-    padding: 0;
-    line-height: inherit;
-    color: inherit;
   }
   
   /**
