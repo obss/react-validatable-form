@@ -243,6 +243,7 @@ export const handleValidationsOfForm = (validationParams) => {
                                     resultErrorMessageParams.rule = rule;
                                     resultErrorMessageParams.options = options;
                                     resultErrorMessageParams.indexOfList = indexOfList;
+                                    resultErrorMessageParams.formData = formData;
                                     if (resultErrorMessageParams.isCommonError) {
                                         validationErrorResult = getCommonErrorMessageByKey(resultErrorMessageParams);
                                     } else {
