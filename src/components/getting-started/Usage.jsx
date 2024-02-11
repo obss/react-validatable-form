@@ -78,11 +78,9 @@ const rules = [{ path: 'val', ruleSet: [{ rule: 'required' }] }];
                 <span>{hookCode}</span>
             </div>
             <iframe
-                src="https://codesandbox.io/embed/react-validatable-form-embed-5hx0xj"
-                className="codesandboxIFrame"
-                title="react-validatable-form-embed-5hx0xj"
-                allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-                sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+                src="https://stackblitz.com/edit/react-validatable-form?embed=1&file=src%2FApp.js"
+                className="stackBlitzIFrame"
+                title="react-validatable-form-embed"
             ></iframe>
         </ExampleUsageWrapper>
     );

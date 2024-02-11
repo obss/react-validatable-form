@@ -1,6 +1,6 @@
 {
     "name": "react-validatable-form",
-    "version": "5.0.1",
+    "version": "5.0.2",
     "description": "React validatable form hook that is used to make dynamic client side validations on react forms",
     "keywords": [
         "react",
@@ -104,5 +104,5 @@
             "last 1 safari version"
         ]
     },
-    "packageManager": "yarn@4.0.1"
+    "packageManager": "yarn@4.1.0"
 }
