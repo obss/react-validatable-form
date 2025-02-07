@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useValidatableForm } from '../../lib';
-import get from 'lodash.get';
+import get from 'lodash/get';
 import ExampleUsageWrapper from '../ExampleUsageWrapper';
 import TextField from '@mui/material/TextField';
 import ValidationResult from '../ValidationResult';

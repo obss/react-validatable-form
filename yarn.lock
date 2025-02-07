@@ -7185,13 +7185,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.get@npm:4.4.2":
-  version: 4.4.2
-  resolution: "lodash.get@npm:4.4.2"
-  checksum: 10/2a4925f6e89bc2c010a77a802d1ba357e17ed1ea03c2ddf6a146429f2856a216663e694a6aa3549a318cbbba3fd8b7decb392db457e6ac0b83dc745ed0a17380
-  languageName: node
-  linkType: hard
-
 "lodash.merge@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
@@ -7199,21 +7192,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.set@npm:4.3.2":
-  version: 4.3.2
-  resolution: "lodash.set@npm:4.3.2"
-  checksum: 10/f0968109bca5625c8ce1f1beab758634484443604d3950477e46d8d2631562e5ceae4465b9ce8a393fd47f5a411329f9bacf956c7c95530af1290db1a20343ba
-  languageName: node
-  linkType: hard
-
-"lodash.unset@npm:4.5.2":
-  version: 4.5.2
-  resolution: "lodash.unset@npm:4.5.2"
-  checksum: 10/24eb187c55177ceb5114d95f594544642f590af1265f1f795df6bed1279b99c2cc63476204d0de9626000103b8b626dba1dbab9f018efcd49c738ccbe037894c
-  languageName: node
-  linkType: hard
-
-"lodash@npm:^4.17.15":
+"lodash@npm:^4.17.15, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10/c08619c038846ea6ac754abd6dd29d2568aa705feb69339e836dfa8d8b09abbb2f859371e86863eda41848221f9af43714491467b5b0299122431e202bb0c532
@@ -9052,9 +9031,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:4.6.0"
     jest: "npm:29.7.0"
     jest-dom: "npm:4.0.0"
-    lodash.get: "npm:4.4.2"
-    lodash.set: "npm:4.3.2"
-    lodash.unset: "npm:4.5.2"
+    lodash: "npm:^4.17.21"
     prettier: "npm:3.0.3"
     primereact: "npm:10.0.9"
     react: "npm:18.2.0"

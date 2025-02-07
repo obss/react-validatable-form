@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import get from 'lodash/get';
 import { DEFAULT_LANG } from '../constants/Constants';
 import {
     isArray,

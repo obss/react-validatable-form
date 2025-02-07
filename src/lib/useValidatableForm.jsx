@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
-import get from 'lodash.get';
-import set from 'lodash.set';
-import unset from 'lodash.unset';
+import get from 'lodash/get';
+import set from 'lodash/set';
+import unset from 'lodash/unset';
 import ReactValidatableFormContext from './ReactValidatableFormContext';
 import { handleValidationsOfForm } from './operations/ValidationOperations';
 import { isNullOrUndefined, isString, isArray } from './utils/ControlUtils';

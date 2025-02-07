@@ -1,6 +1,6 @@
 {
     "name": "react-validatable-form",
-    "version": "5.0.2",
+    "version": "6.0.0",
     "description": "React validatable form hook that is used to make dynamic client side validations on react forms",
     "keywords": [
         "react",
@@ -85,9 +85,7 @@
         "web-vitals": "3.5.0"
     },
     "dependencies": {
-        "lodash.get": "4.4.2",
-        "lodash.set": "4.3.2",
-        "lodash.unset": "4.5.2"
+        "lodash": "^4.17.21"
     },
     "files": [
         "dist"
